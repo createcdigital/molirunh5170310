@@ -1,0 +1,170 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "微软雅黑"; }
+
+img {
+  display: block;
+  margin: 0;
+  padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative; }
+#Shine_landscape_pic {
+	margin: 0 auto;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+
+.p1 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.p1 .p1-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.p1 .p1-number {
+    width: 350px;
+	height: 40px;
+	border: 2px solid pink;
+	font-size: 24px;
+	color: #8393ca;
+	position: absolute;
+	top: 600px;
+	left: 200px;
+}
+.p1 .p1-btn {
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	top: 990px;
+	left: 278px;
+}
+.p1 .p1-hitbox {
+	width: 100%;
+	height: auto;
+	position: absolute;
+	bottom: 350px;
+	left: 0;
+	text-align: center;
+	font-size: 30px;
+	color: #e6959f;
+}
+.p1 .p1-hitbox .p1-hit {
+	display: block;
+	width: auto;
+	height: auto;
+	text-align: center;
+}
+
+.p2 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.p2 .p2-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.p2 .p2-btn {
+    width: 180px;
+	height: 180px;
+	position: absolute;
+	top: 992px;
+	left: 274px;
+	z-index: 10; 
+}
+.p2 .p2-cover {
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+	display: none;
+}
+.p2 .p2-cover .p2-shade {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.3;
+	z-index: 20;
+}
+.p2 .p2-cover .p2-coverimg {
+	width: 549px;
+	height: 996px;
+	position: absolute;
+	top: 106px;
+	left: 100px;
+	z-index: 21;
+}
+.p2 .p2-cover .p2-btn2 {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 940px;
+	left: 330px;
+	z-index: 25;
+}
+.p2 .p2-namebox,.p2-sexbox,.p2-groupbox,.p2-tagbox,.p2-sizebox {
+	width: 100%;
+	height: auto;
+	position: absolute;
+	top: 432px;
+	left: 0;
+	font-size: 30px;
+	color: #8ba6e2;
+	text-align: center;
+}
+.p2 .p2-sexbox {
+	top: 526px;
+}
+.p2 .p2-groupbox {
+	top: 620px;
+}
+.p2 .p2-sizebox {
+	top: 712px;
+}
+.p2 .p2-tagbox {
+	top: 806px;
+}
+
+.p2 .p2-name,.p2-sex,.p2-group,.p2-tag,.p2-size {
+	display: block;
+	width: auto;
+	height: auto;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

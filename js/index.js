@@ -12,7 +12,8 @@ app.template.swiper.init = function(){
     //判断是否有cookie 
     if(app.p1.getidCookie("id")){
     	  console.info(app.p1.getidCookie("id"));
-    	  app.p5.getuserinfobycardnumber(app.p1.getidCookie("id"));  	  
+    	  app.p5.getuserinfobycardnumber(app.p1.getidCookie("id"));
+    	  
     }else {
     	  console.info("none");
     }
@@ -20,6 +21,7 @@ app.template.swiper.init = function(){
 };
 app.template.swiper.bind = function(){
     $(".swiper-container").css("display", "block");
+
     app.template.swiper.mySwiper = new Swiper ('.swiper-container', {
         speed:500,
         lazyLoading : true,
@@ -32,6 +34,7 @@ app.template.swiper.bind = function(){
         },
         onSlideChangeStart: function(swiper){
             swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
+
             app.template.swiper.on_pageslideend(swiper.activeIndex);
             app.template.swiper.mySwiper.lockSwipes();
         }

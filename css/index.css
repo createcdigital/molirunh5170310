@@ -1143,21 +1143,15 @@ html, body {
 }
 
 
+/*-- debug
+====================================================== */
+.debug{position: absolute; z-index:999;}
+.debug .debug-5km{position: absolute; top: 10px;  left: 100px; border: 1px solid red; width: 100px; height: 50px;}
+.debug .debug-10km{position: absolute; top: 10px;  left: 300px; border: 1px solid red; width: 100px; height: 50px;}
+.debug .debug-family{position: absolute; top: 10px;  left: 500px; border: 1px solid red; width: 100px; height: 50px;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*-- coupon
+====================================================== */
+.coupon{}
+.coupon .lab{}
+.coupon .inp{width:303px;height:40px;border:2px solid pink;font-size:24px;color:#8393ca;z-index:15; position: absolute; top: 1000px;}

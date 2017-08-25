@@ -90,6 +90,35 @@ app.template.touch.init = function(){
    
 };
 
+//tool
+app.template.tool = function(){};
+app.template.tool.date = function (fmt) {
+    var date = new Date();
+
+    var o = {
+        "M+": date.getMonth() + 1,
+        "d+": date.getDate(),
+        "h+": date.getHours(),
+        "m+": date.getMinutes(),
+        "s+": date.getSeconds(),
+        "q+": Math.floor((date.getMonth() + 3) / 3),
+        "S": date.getMilliseconds()
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+
+/*-- api config
+====================================================== */
+app.api = function(){};
+//app.api.host = "https://molirun.api.createcdigital.com";
+app.api.host = "http://192.168.1.5:8088";
+
+
+
 /*-- p1
 ====================================================== */
 app.p1 = function(){};
@@ -314,7 +343,7 @@ app.p3.remove_month2 = function(){
 };
 app.p3.checkstock_bygrouptype = function(){
 	//查询库存信息
-	$.getJSON('https://molirun.api.createcdigital.com/stock/get', function(data){
+	$.getJSON(app.api.host + '/stock/get', function(data){
         console.info(data[0]);
         if(data.length>0){
         	  if(data[0].group_type_family<=0){
@@ -435,12 +464,12 @@ var idcard2;
 var idcard3;
 var idcard4;
 
-app.p3.bind_touch_event = function(){  		
+app.p3.bind_touch_event = function(){
 	// 两个返回按钮
 	$(".p3-btn1,.p3-btn3").on("touchend",function(){
 		app.template.swiper.to(0);
 	});
-    
+
 	// 5公里 10公里 确定按钮
 	$(".p3-btn2").on("touchend",function(){
 		var phone_patt = new RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/); // 手机号码
@@ -511,6 +540,14 @@ app.p3.bind_touch_event = function(){
 		idcard4 = true;
 	});
 		
+    /* debug */
+    $(".debug-5km").click(function(){
+        $("#username-1").val("姓名");
+        $("#idcard-1").val("320682198801090014");
+        $("#phone-1").val("13564133192");
+        $("#eperson-1").val("紧急联系人姓名");
+        $("#ephone-1").val("13564133193");
+    });
 };
 app.p3.checkValue_one = function(){
 	if(idcard1==false){
@@ -1143,57 +1180,92 @@ app.p5.bind_touch_event = function(){
 	});
 	//确认并支付
 	$(".p5-paybtn").on("touchend",function(){
-		if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
-			app.p5.singlejudge();
-			var paydata;
-			if($(".p3-group-5").is(":checked")){
-				paydata = {"openid": user.openid, "grouptype": "5km", "outtradeno": user.out_trade_no};
-			}else if($(".p3-group-10").is(":checked")){
-				paydata = {"openid": user.openid, "grouptype": "10km", "outtradeno": user.out_trade_no};
-			}
-			if(getId==user.p1_card_number){
-				user.action = "update";
-				console.info("update");
-			}else {
-				user.action = "add";
-				console.info("add");
-			}
-			$.post('https://molirun.api.createcdigital.com/user/add', user, function(data){
-				var data = typeof data == "object" ? data : JSON.parse(data);
-				console.info(data.rs);
-	            if(data.rs=="success"){
-	            	    app.p1.setidCookie("id",""+user.p1_card_number+"");
-                    app.p5.payment(paydata);
-	            }else {
-	            	   alert(data.rs);
-	            }		            				     			            
-	        }, "JSON");
-			
-		}
-		if($(".p3-group-family").is(":checked")){
-			app.p5.familyjudge();
-			var paydata = {"openid": user.openid, "grouptype": "家庭跑", "outtradeno": user.out_trade_no};
-			if(getFamilyId1==user.p1_card_number && getFamilyId2==user.p2_card_number && getFamilyId3==user.kids_card_number){
-				user.action = "update";
-				console.info("update");
-			}else {
-				user.action = "add";
-				console.info("add");
-			}		
-            $.post('https://molirun.api.createcdigital.com/user/add', user, function(data){
-				var data = typeof data == "object" ? data : JSON.parse(data);
-				console.info(data.rs);
-	            if(data.rs=="success"){
-	            	    app.p1.setidCookie("id",""+user.p1_card_number+"");
-                    app.p5.payment(paydata);
-	            }else {
-	            	   alert(data.rs);
-	            }
-	        }, "JSON");
-			
-		}
+
+    	if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
+    		app.p5.singlejudge();
+    		var paydata;
+    		if($(".p3-group-5").is(":checked")){
+    			paydata = {"openid": user.openid, "grouptype": "5km", "outtradeno": user.out_trade_no};
+    		}else if($(".p3-group-10").is(":checked")){
+    			paydata = {"openid": user.openid, "grouptype": "10km", "outtradeno": user.out_trade_no};
+    		}
+    		if(getId==user.p1_card_number){
+    			user.action = "update";
+    			console.info("update");
+    		}else {
+    			user.action = "add";
+    			console.info("add");
+    		}
+    	}
+    	if($(".p3-group-family").is(":checked")){
+    		app.p5.familyjudge();
+    		var paydata = {"openid": user.openid, "grouptype": "家庭跑", "outtradeno": user.out_trade_no};
+    		if(getFamilyId1==user.p1_card_number && getFamilyId2==user.p2_card_number && getFamilyId3==user.kids_card_number){
+    			user.action = "update";
+    			console.info("update");
+    		}else {
+    			user.action = "add";
+    			console.info("add");
+    		}
+    	}
+
+
+        var coupon_code = $("#coupon").val();
+        if(!coupon_code)
+        {
+            app.p5.gotopay(user, paydata);
+        }else if(coupon_code != app.p5.coupon_code)
+        {
+            $.getJSON(app.api.host + '/coupon/verify/' + coupon_code, function(data){
+                var data = typeof data == "object" ? data : JSON.parse(data);
+
+                if(data.length > 0)
+                {
+                    if(data[0].number_of_use < 3)
+                    {
+                        paydata.pay_status = "内部员工";
+                        paydata.transaction_id = coupon_code;
+                        paydata.transaction_date = app.template.tool.date("yyyy-MM-dd hh:mm:ss");
+                        app.p5.gotopay(user, paydata, true);
+                    }else
+                    {
+                        app.p5.coupon_code = coupon_code;
+                        alert('邀请码超过使用次数');
+                    }
+                }else
+                {
+                    app.p5.coupon_code = coupon_code;
+                    alert('邀请码无效');
+                }
+           });
+        }
 	});
 };
+
+app.p5.coupon_code = 0;
+app.p5.gotopay = function(user_data, pay_data, use_coupon)
+{
+    $.post(app.api.host + '/user/add', user_data, function(data){
+        var data = typeof data == "object" ? data : JSON.parse(data);
+        console.info(data.rs);
+        if(data.rs=="success"){
+            app.p1.setidCookie("id",""+user.p1_card_number+"");
+
+            if(!use_coupon)
+                app.p5.payment(paydata);
+            else
+            {
+                $(".p5-paybtn,.p5-btn1,.p5-btn2").hide();
+                $(".p5-payfinish").show();
+                app.p1.delidCookie("id");
+                alert("支付成功!");
+            }
+        }else {
+               alert(data.rs);
+        }
+    }, "JSON");
+}
+
 //获取用户所填的信息
 var user = {};
 var singleGroup;
@@ -1506,7 +1578,7 @@ app.p5.familyjudge=function(){
 }
 
 app.p5.getuserinfobycardnumber = function(card_number){
-	$.getJSON('https://molirun.api.createcdigital.com/user/id/' + card_number, function(data){
+	$.getJSON(app.api.host + '/user/id/' + card_number, function(data){
         var data = typeof data == "object" ? data : JSON.parse(data);
         if(data[0].pay_status=="已支付"){
         	   console.info("已支付");

@@ -78,8 +78,18 @@ app.template.touch.eventlistener_handler = function(e){
 app.template.touch.init = function(){
    document.body.addEventListener("touchmove", app.template.touch.eventlistener_handler, false);
 };
- 
- 
+
+
+
+/*-- api config
+====================================================== */
+app.api = function(){};
+//app.api.host = "https://molirun.api.createcdigital.com";
+app.api.host = "http://192.168.1.5:8088";
+
+
+
+
 //  p1
 app.p1 = function(){};
 app.p1.init = function(){
@@ -103,7 +113,7 @@ app.p1.bind_touch_event = function(){
     });
 };
 app.p1.getuserinfobycardnumber = function(card_number){
-	$.getJSON('https://molirun.api.createcdigital.com/user/id/' + card_number, function(data){
+	$.getJSON(app.api.host + '/user/id/' + card_number, function(data){
 		var data = typeof data == "object" ? data : JSON.parse(data);
         console.log(data[0]);
         if(data[0]){
@@ -143,11 +153,17 @@ app.p2.set_userinfo = function(data){
 		size = data[0].p1_teesize+" / "+data[0].p2_teesize+" / "+data[0].kids_teesize;
 		tag = data[0].p1_tag;
 	}
-    $(".p2-name").html(name);
-    $(".p2-sex").html(sex);
-    $(".p2-group").html(group);
-    $(".p2-size").html(size);
-    $(".p2-tag").html(tag);
+    $(".name").html(name);
+    $(".sex").html(sex);
+    $(".grouptype").html(group);
+    $(".tee").html(size);
+    $(".tag").html(tag);
+
+    if(group == "亲子跑")
+    {
+        $(".tee").css('font-size', '20px');
+        $(".name").css('font-size', '20px');
+    }
 	
 };
 app.p2.bind_touch_event = function(){

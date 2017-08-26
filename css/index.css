@@ -819,12 +819,12 @@ html, body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	z-index: 2;
 }
 .p4 .p4-box .scroller {
 	width: 100%;
-	height: 1206px;
+	height: 1800px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -838,7 +838,7 @@ html, body {
 }
 .p4 .p4-box .scroller .p4-bg {
 	width: 100%;
-	height: 1206px;
+	height: 1800px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -850,7 +850,7 @@ html, body {
 	background: url(../img/p4-btn1.png) no-repeat;
 	background-size: 100% 100%;
 	position: absolute;
-	top: 1048px;
+	top: 1677px;
 	left: 202px;
 	z-index: 15;
 }
@@ -860,7 +860,7 @@ html, body {
 	background: url(../img/p4-btn2.png) no-repeat;
 	background-size: 100% 100%;
 	position: absolute;
-	top: 1048px;
+	top: 1677px;
 	left: 406px;
 	z-index: 15;
 }
@@ -874,7 +874,7 @@ html, body {
     border: 2px solid pink;
     outline: none;
     position: absolute;
-	top: 705px;
+	top: 1334px;
 	left: 152px;
 	z-index: 15;
 }
@@ -888,7 +888,7 @@ html, body {
     border: 2px solid pink;
     outline: none;
     position: absolute;
-	top: 705px;
+	top: 1334px;
 	left: 390px;
 	z-index: 15;
 }
@@ -909,15 +909,15 @@ html, body {
 	height: auto;
 	color: #5d87ad;
 	position: absolute;
-	top: 784px;
+	top: 1413px;
 	left: 152px;
 }
 .p4 .p4-box .scroller .p4-adresstext {
-	top: 850px;
+	top: 1479px;
 	left: 152px;
 }
 .p4 .p4-box .scroller .p4-phonetext {
-	top: 918px;
+	top: 1547px;
 	left: 152px;
 }
 .p4 .p4-box .scroller .p4-name,.p4-phone,.p4-adress {
@@ -927,22 +927,22 @@ html, body {
 	font-size: 24px;
 	color: #8393ca;
 	position: absolute;
-	top: 777px;
+	top: 1406px;
 	left: 236px;
 }
 .p4 .p4-box .scroller .p4-adress {
-	top: 843px;
+	top: 1472px;
 	left: 236px;
 }
 .p4 .p4-box .scroller .p4-phone {
-	top: 910px;
+	top: 1539px;
 	left: 236px;
 }
 .p4 .p4-box .scroller .p4-hint {
 	width: 100%;
 	height: auto;
 	position: absolute;
-	top: 986px;
+	top: 1615px;
 	left: 0;
 	font-size: 30px;
 	color: #eca8a8;
@@ -961,8 +961,31 @@ html, body {
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: scroll;
 }
-.p5 .p5-bg {
+.p5 .p5-box {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+.p5 .p5-box .scroller {
+	width: 100%;
+	height: 1600px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	z-index: 3;
+}
+.p5 .p5-box .scroller .p5-bg {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -970,30 +993,30 @@ html, body {
 	left: 0;
 	-webkit-user-select: none;
 }
-.p5 .p5-localicon {
-	width: 351px;
-	height: 147px;
+.p5 .p5-box .scroller .p5-localicon {
+	width: 139px;
+	height: 41px;
 	position: absolute;
-	top: 681px;
-	left: 200px;
+	top: 758px;
+	left: 310px;
 }
-.p5 .p5-btn1 {
+.p5 .p5-box .scroller .p5-btn1 {
 	width: 173px;
 	height: 61px;
 	position: absolute;
-	top: 603px;
-	left: 551px;
+	top: 633px;
+    left: 288px;
 	z-index: 20;
 }
-.p5 .p5-btn2 {
+.p5 .p5-box .scroller .p5-btn2 {
 	width: 173px;
 	height: 61px;
 	position: absolute;
-	top: 971px;
-	left: 551px;
+	top: 1070px;
+	left: 288px;
 	z-index: 20;
 }
-.p5 .p5-groupbox,.p5-sizebox,.p5-tagbox,.p5-usernamebox,.p5-sexbox {
+.p5 .p5-box .scroller .p5-groupbox,.p5-sizebox,.p5-tagbox,.p5-usernamebox,.p5-sexbox {
 	width: 750px;
 	height: 45px;
 	font-size: 30px;
@@ -1003,49 +1026,49 @@ html, body {
 	left: 0;
 	text-align: cneter !important;
 }
-.p5 .p5-sizebox {
+.p5 .p5-box .scroller .p5-sizebox {
 	top: 314px;
 }
-.p5 .p5-tagbox {
+.p5 .p5-box .scroller .p5-tagbox {
 	top: 412px;
 }
-.p5 .p5-usernamebox {
+.p5 .p5-box .scroller .p5-usernamebox {
 	top: 511px;
 }
-.p5 .p5-sexbox {
+.p5 .p5-box .scroller .p5-sexbox {
 	top: 610px;
 }
-.p5 .p5-groupbox .p5-group {
+.p5 .p5-box .scroller .p5-groupbox .p5-group {
 	display: block;
 	width: auto;
 	height: auto;
 	text-align: center;
 }
-.p5 .p5-sizebox .p5-size {
+.p5 .p5-box .scroller .p5-sizebox .p5-size {
 	display: block;
 	width: auto;
 	height: auto;
 	text-align: center;
 }
-.p5 .p5-tagbox .p5-tag {
+.p5 .p5-box .scroller .p5-tagbox .p5-tag {
 	display: block;
 	width: auto;
 	height: auto;
 	text-align: center;
 }
-.p5 .p5-usernamebox .p5-username {
+.p5 .p5-box .scroller .p5-usernamebox .p5-username {
 	display: block;
 	width: auto;
 	height: auto;
 	text-align: center;
 }
-.p5 .p5-sexbox .p5-sex {
+.p5 .p5-box .scroller .p5-sexbox .p5-sex {
 	display: block;
 	width: auto;
 	height: auto;
 	text-align: center;
 }
-.p5 .p5-textadress {
+.p5 .p5-box .scroller .p5-textadress {
 	display: block;
 	width: 271px;
 	height: 67px;
@@ -1058,7 +1081,7 @@ html, body {
 	left: 243px;
 	
 }
-.p5 .p5-textlocal {
+.p5 .p5-box .scroller .p5-textlocal {
 	display: block;
 	width: 271px;
 	height: 67px;
@@ -1071,54 +1094,76 @@ html, body {
 	left: 243px;
 	display: none;
 }
-.p5 .p5-name,.p5-adress,.p5-phone {
+.p5 .p5-box .scroller .p5-name,.p5-adress,.p5-phone {
 	display: block;
 	width: auto;
 	height: auto;
 	font-size: 30px;
 	color: #e6757d;
 	position: absolute;
-	top: 827px;
+	top: 890px;
 	left: 198px;
 }
-.p5 .p5-adress {
-	top: 886px;
+.p5 .p5-box .scroller .p5-adress {
+	top: 950px;
 }
-.p5 .p5-phone {
-	top: 946px;
+.p5 .p5-box .scroller .p5-phone {
+	top: 1020px;
 }
-.p5 .p5-nameinput,.p5-adressinput,.p5-phoneinput {
+.p5 .p5-box .scroller .p5-nameinput,.p5-adressinput,.p5-phoneinput {
 	display: block;
 	width: auto;
 	height: auto;
 	font-size: 30px;
 	color: #5d87ad;
 	position: absolute;
-	top: 827px;
+	top: 890px;
 	left: 282px;
 }
-.p5 .p5-adressinput {
-	top: 886px;
+.p5 .p5-box .scroller .p5-adressinput {
+	top: 950px;
 }
-.p5 .p5-phoneinput {
-	top: 946px;
+.p5 .p5-box .scroller .p5-phoneinput {
+	top: 1020px;
 }
-.p5 .p5-paybtn {
-	width: 235px;
-	height: 83px;
+.p5 .p5-box .scroller .p5-paybtn {
+    width: 318px;
+    height: 112px;
 	position: absolute;
-	top: 1063px;
-	left: 258px;
+	top: 1450px;
+	left: 216px;
 	z-index: 20;
 }
-.p5 .p5-payfinish {
+.p5 .p5-box .scroller .p5-payfinish {
 	width: 318px;
 	height: 112px;
 	position: absolute;
-	top: 1048px;
+	top: 1450px;
 	left: 216px;
 	z-index: 20;
 	display: none;
+}
+
+.p5 .p5-onsite-part1{
+	width: auto;
+    height: auto;
+    font-size: 30px;
+    color: #5d87ad;
+    position: absolute;
+    top: 915px;
+    left: 225px;
+    display: none;
+}
+
+.p5 .p5-onsite-part2{
+	width: auto;
+    height: auto;
+    font-size: 30px;
+    color: #5d87ad;
+    position: absolute;
+    top: 970px;
+    left: 270px;
+    display: none;
 }
 
 /*audio*/
@@ -1153,5 +1198,6 @@ html, body {
 /*-- coupon
 ====================================================== */
 .coupon{}
-.coupon .lab{}
-.coupon .inp{width:303px;height:40px;border:2px solid pink;font-size:24px;color:#8393ca;z-index:15; position: absolute; top: 1000px;}
+.coupon .lab{font-size:32px;width:auto;height:auto;color:#5d87ad;position:absolute;top:1345px;left:180px;}
+.coupon .inp{width:265px;height:40px;border:2px solid pink;font-size:24px;color:#8393ca;z-index:15; position: absolute; top: 1345px; left:290px;}
+.coupon .msg{width:100%;height:auto;font-size:30px;color:#eca8a8;text-align:center; position: absolute; top: 1397px;}

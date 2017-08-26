@@ -813,14 +813,19 @@ app.p5.getUserInfobyChart = function(){
 	};
 	//进入第五页 判断用户选取的赛事包寄送方式
 	if($(".p4-send").is(":checked")){
-		$(".p5-textlocal").css("display","none");
+        $(".p5-onsite-part1").hide();
+        $(".p5-onsite-part2").hide();
+
+		$("#p5-getpackage").attr("src","img/p5-delivery.png");
 		$(".p5-textadress,.p5-name,.p5-nameinput,.p5-adress,.p5-adressinput,.p5-phone,.p5-phoneinput").css("display","block");
 		$(".p5-nameinput").html($(".p4-name").val());
 		$(".p5-adressinput").html($(".p4-adress").val());
 		$(".p5-phoneinput").html($(".p4-phone").val());
 	}else if($(".p4-get").is(":checked")){
 		$(".p5-textadress,.p5-name,.p5-nameinput,.p5-adress,.p5-adressinput,.p5-phone,.p5-phoneinput").css("display","none");
-		$(".p5-textlocal").css("display","block");
+		$("#p5-getpackage").attr("src","img/p5-onsite.png");
+        $(".p5-onsite-part1").show();
+        $(".p5-onsite-part2").show();
 	};
 };
 
@@ -1160,7 +1165,10 @@ app.p5.getUserInfobyAjax = function(data){
 	}
 	//寄送方式
 	if(data.pakcage_get_way == "顺丰到付"){
-		$(".p5-textlocal").css("display","none");
+        $(".p5-onsite-part1").hide();
+        $(".p5-onsite-part2").hide();
+
+		$("#p5-getpackage").attr("src","img/p5-delivery.png");
 		$(".p5-textadress,.p5-name,.p5-nameinput,.p5-adress,.p5-adressinput,.p5-phone,.p5-phoneinput").css("display","block");
 		$(".p5-nameinput").html(data.pakcage_get_name);
 		$(".p5-adressinput").html(data.pakcage_get_address);
@@ -1171,8 +1179,10 @@ app.p5.getUserInfobyAjax = function(data){
 		$("#p4-phone").val(data.pakcage_get_phone);
 	}else if(data.pakcage_get_way == "现场领取"){
 		$(".p5-textadress,.p5-name,.p5-nameinput,.p5-adress,.p5-adressinput,.p5-phone,.p5-phoneinput").css("display","none");
-		$(".p5-textlocal").css("display","block");
+		$("#p5-getpackage").attr("src","img/p5-onsite.png");
 		$(".p4-get").attr("checked","checked");
+        $(".p5-onsite-part1").show();
+        $(".p5-onsite-part2").show();
 	};
 	
 };
@@ -1264,15 +1274,17 @@ app.p5.bind_touch_event = function(){
                     if(data[0].number_of_use < 3)
                     {
                         app.p5.gotopay(user, paydata, true, coupon_code);
+                        $("#coupon-msg").html('');
+                        $("#coupon").attr('disabled', 'disabled');
                     }else
                     {
                         app.p5.coupon_code = coupon_code;
-                        alert('邀请码超过使用次数');
+                        $("#coupon-msg").html('邀请码超过使用次数！');
                     }
                 }else
                 {
                     app.p5.coupon_code = coupon_code;
-                    alert('邀请码无效');
+                    $("#coupon-msg").html('邀请码无效！');
                 }
            });
         }

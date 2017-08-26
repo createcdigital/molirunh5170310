@@ -38,21 +38,21 @@ html, body {
   left: 0;
 }
 .p1 .p1-number {
-    width: 350px;
-	height: 40px;
-	border: 2px solid pink;
-	font-size: 24px;
-	color: #8393ca;
-	position: absolute;
-	top: 600px;
-	left: 200px;
+    width: 365px;
+    height: 55px;
+    border: 0px solid pink;
+    font-size: 24px;
+    color: #8393ca;
+    position: absolute;
+    top: 665px;
+    left: 190px
 }
 .p1 .p1-btn {
-	width: 180px;
-	height: 180px;
-	position: absolute;
-	top: 990px;
-	left: 278px;
+    width: 230px;
+    height: 120px;
+    position: absolute;
+    top: 1100px;
+    left: 260px;
 }
 .p1 .p1-hitbox {
 	width: 100%;
@@ -84,12 +84,12 @@ html, body {
   left: 0;
 }
 .p2 .p2-btn {
-    width: 180px;
-	height: 180px;
-	position: absolute;
-	top: 992px;
-	left: 274px;
-	z-index: 10; 
+    width: 230px;
+    height: 120px;
+    position: absolute;
+    top: 1150px;
+    left: 260px;
+    z-index: 23;
 }
 .p2 .p2-cover {
 	width: 100%;
@@ -108,42 +108,42 @@ html, body {
 	z-index: 20;
 }
 .p2 .p2-cover .p2-coverimg {
-	width: 549px;
-	height: 996px;
+	width:  100%;;
+	height:  100%;;
 	position: absolute;
-	top: 106px;
-	left: 100px;
+	top: 0px;
+	left: 0px;
 	z-index: 21;
 }
 .p2 .p2-cover .p2-btn2 {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	top: 940px;
-	left: 330px;
-	z-index: 25;
+	width: 230px;
+    height: 120px;
+    position: absolute;
+    top: 1150px;
+    left: 260px;
+    z-index: 25;
 }
-.p2 .p2-namebox,.p2-sexbox,.p2-groupbox,.p2-tagbox,.p2-sizebox {
-	width: 100%;
+.p2 .txt,.grouptype {
+	width: auto;
 	height: auto;
 	position: absolute;
-	top: 432px;
-	left: 0;
-	font-size: 30px;
+	top: 465px;
+	left: 315px;
+	font-size: 35px;
 	color: #8ba6e2;
 	text-align: center;
 }
-.p2 .p2-sexbox {
-	top: 526px;
+.p2 .tee {
+	top: 559px;
 }
-.p2 .p2-groupbox {
-	top: 620px;
+.p2 .name {
+	top: 640px;
 }
-.p2 .p2-sizebox {
-	top: 712px;
+.p2 .sex {
+	top: 728px;
 }
-.p2 .p2-tagbox {
-	top: 806px;
+.p2 .tag {
+	top: 815px;
 }
 
 .p2 .p2-name,.p2-sex,.p2-group,.p2-tag,.p2-size {

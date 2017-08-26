@@ -110,6 +110,9 @@ app.template.tool.date = function (fmt) {
     return fmt;
 }
 
+app.template.tool.random = function(range){
+    return Math.floor((Math.random() * range) + 1);
+};
 
 /*-- api config
 ====================================================== */
@@ -423,7 +426,7 @@ app.p3.checkstock_bygrouptype = function(){
         	  }
         	  if(data[0].f_xs <= 0 && data[0].f_s <= 0 && data[0].f_m <= 0 && data[0].f_l <= 0 && data[0].f_xl <= 0 && data[0].f_xxl <= 0 && data[0].kids_110 <= 0 && data[0].kids_130 <= 0){
         	  	 $(".p3-btn4").hide();
-             alert("很抱歉！本次活动家庭跑的T恤尺码已没有库存！");
+             alert("很抱歉！本次活动亲子跑的T恤尺码已没有库存！");
         	  }
          	  
         }
@@ -495,7 +498,7 @@ app.p3.bind_touch_event = function(){
 		}			
 	});
 	
-	//家庭跑 确定按钮
+	//亲子跑 确定按钮
 	$(".p3-btn4").on("touchend",function(){
 		app.p3.check_personOne();
 		app.p3.check_personTwo();
@@ -542,11 +545,48 @@ app.p3.bind_touch_event = function(){
 		
     /* debug */
     $(".debug-5km").click(function(){
-        $("#username-1").val("姓名");
-        $("#idcard-1").val("320682198801090014");
-        $("#phone-1").val("13564133192");
-        $("#eperson-1").val("紧急联系人姓名");
-        $("#ephone-1").val("13564133193");
+        var random = app.template.tool.random(9);
+        $("#username-1").val("姓名" + random);
+        $("#idcard-1").val("32068219880109001" + random);
+        $("#phone-1").val("1356413319" + random);
+        $("#eperson-1").val("紧急联系人姓名" + random);
+        $("#ephone-1").val("1356413319" + (random+1));
+    });
+
+    $(".debug-10km").click(function(){
+        var random = app.template.tool.random(9);
+        $("#p3-group-10").attr('checked', 'checked');
+        $("#username-1").val("姓名" + random);
+        $("#idcard-1").val("32068219880109001" + random);
+        $("#phone-1").val("1356413319" + random);
+        $("#eperson-1").val("紧急联系人姓名" + random);
+        $("#ephone-1").val("1356413319" + (random+1));
+    });
+
+    $(".debug-family").click(function(){
+        var random = app.template.tool.random(9);
+        $("#p3-group-family").attr('checked', 'checked');
+        $("#username-2").val("成人1" + random);
+        $("#idcard-2").val("62068219880109001" + random);
+        $("#phone-2").val("1356413319" + random);
+        $("#eperson-2").val("紧急联系人成人1" + random);
+        $("#ephone-2").val("1366413319" + (random+1));
+
+        $("#username-3").val("成人2" + random);
+        $("#idcard-3").val("72068219880109001" + random);
+        $("#phone-3").val("1376413319" + random);
+        $("#eperson-3").val("紧急联系人成人2" + random);
+        $("#ephone-3").val("1376413319" + (random+1));
+
+        $("#username-4").val("小孩" + random);
+        $("#idcard-4").val("82068220070109001" + random);
+        $("#phone-4").val("1386413319" + random);
+        $("#parent").val("监护人" + random);
+        $("#parent-phone").val("1386413319" + random);
+        $("#eperson-4").val("紧急联系人小孩" + random);
+        $("#ephone-4").val("1386413319" + (random+1));
+
+        $(".p3-btn4").show();
     });
 };
 app.p3.checkValue_one = function(){
@@ -603,7 +643,7 @@ var id_patt = new RegExp(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-
 var childid_patt = new RegExp(/^[1-9]\d{5}20[01][0-9]((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/); // 儿童身份证
 var hkm_patt = new RegExp(/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/); // 港澳通行证号码
 var tw_patt = new RegExp(/\d{8}/); // 台胞证	
-// 验证家庭跑
+// 验证亲子跑
 app.p3.check_personOne = function(){
 	if($("#username-2").val()!="" && $("#idcard-2").val()!="" && $("#phone-2").val()!="" && phone_patt.test($("#phone-2").val()) && $("#eperson-2").val()!="" && $("#ephone-2").val()!="" && phone_patt.test($("#ephone-2").val()) && $("#phone-2").val()!=$("#ephone-2").val() && $("#username-2").val()!=$("#eperson-2").val()){
 		var card_number = $("#idcard-2").val();
@@ -737,7 +777,7 @@ app.p5 = function(){};
 app.p5.init = function(){
 	if(app.p1.getidCookie("id")){
 		app.p5.getUserInfobyAjax(user);		
-		if(user.grouptype == "家庭跑"){
+		if(user.grouptype == "亲子跑"){
 			getFamilyId1 = user.p1_card_number;
 			getFamilyId2 = user.p2_card_number;
 			getFamilyId3 = user.kids_card_number;
@@ -766,10 +806,10 @@ app.p5.getUserInfobyChart = function(){
 	}else if($(".p3-group-family").is(":checked")){
 		app.p5.familyjudge();
 		$(".p5-group").html(''+familyGroup+'');
-	    $(".p5-size").html(''+familySize1+','+familySize2+','+familySize3+'');
+	    $(".p5-size").html(''+familySize1+' / '+familySize2+' / '+familySize3+'');
 	    $(".p5-tag").html(''+familyTag+'');
-	    $(".p5-username").html(''+familyName1+','+familyName2+','+familyName3+''); 
-	    $(".p5-sex").html(''+familySex1+','+familySex2+','+familySex3+'');
+	    $(".p5-username").html(''+familyName1+' / '+familyName2+' / '+familyName3+''); 
+	    $(".p5-sex").html(''+familySex1+' / '+familySex2+' / '+familySex3+'');
 	};
 	//进入第五页 判断用户选取的赛事包寄送方式
 	if($(".p4-send").is(":checked")){
@@ -896,7 +936,7 @@ app.p5.getUserInfobyAjax = function(data){
 	    }
 	    app.p1.delidCookie("id");
 	    
-	}else if(data.grouptype == "家庭跑"){
+	}else if(data.grouptype == "亲子跑"){
 		$(".p5-group").html(''+data.grouptype+'');
 	    $(".p5-size").html(''+data.p1_teesize+','+' '+data.p2_teesize+','+' '+data.kids_teesize+'');
 	    $(".p5-tag").html(''+data.p1_tag+'');
@@ -1145,7 +1185,7 @@ app.p5.selectedYearandMonth = function(){
 	    $("#month-1 option[value='"+cutmonth+"']").prop("selected","selected");
 
 	}
-	if(user.grouptype=="家庭跑"){
+	if(user.grouptype=="亲子跑"){
 		var cutyear = user.p1_birthday.split("-")[0];
 	    var cutmonth = user.p1_birthday.split("-")[1];
 	    $("#year-2 option[value='"+cutyear+"']").prop("selected","selected");
@@ -1199,7 +1239,7 @@ app.p5.bind_touch_event = function(){
     	}
     	if($(".p3-group-family").is(":checked")){
     		app.p5.familyjudge();
-    		var paydata = {"openid": user.openid, "grouptype": "家庭跑", "outtradeno": user.out_trade_no};
+    		var paydata = {"openid": user.openid, "grouptype": "亲子跑", "outtradeno": user.out_trade_no};
     		if(getFamilyId1==user.p1_card_number && getFamilyId2==user.p2_card_number && getFamilyId3==user.kids_card_number){
     			user.action = "update";
     			console.info("update");
@@ -1223,10 +1263,7 @@ app.p5.bind_touch_event = function(){
                 {
                     if(data[0].number_of_use < 3)
                     {
-                        paydata.pay_status = "内部员工";
-                        paydata.transaction_id = coupon_code;
-                        paydata.transaction_date = app.template.tool.date("yyyy-MM-dd hh:mm:ss");
-                        app.p5.gotopay(user, paydata, true);
+                        app.p5.gotopay(user, paydata, true, coupon_code);
                     }else
                     {
                         app.p5.coupon_code = coupon_code;
@@ -1243,7 +1280,7 @@ app.p5.bind_touch_event = function(){
 };
 
 app.p5.coupon_code = 0;
-app.p5.gotopay = function(user_data, pay_data, use_coupon)
+app.p5.gotopay = function(user_data, pay_data, use_coupon, coupon_code)
 {
     $.post(app.api.host + '/user/add', user_data, function(data){
         var data = typeof data == "object" ? data : JSON.parse(data);
@@ -1252,18 +1289,53 @@ app.p5.gotopay = function(user_data, pay_data, use_coupon)
             app.p1.setidCookie("id",""+user.p1_card_number+"");
 
             if(!use_coupon)
-                app.p5.payment(paydata);
+                app.p5.payment(pay_data);
             else
             {
-                $(".p5-paybtn,.p5-btn1,.p5-btn2").hide();
-                $(".p5-payfinish").show();
-                app.p1.delidCookie("id");
-                alert("支付成功!");
+                app.p5.useconpontopay(user_data, pay_data, coupon_code);
             }
         }else {
                alert(data.rs);
         }
     }, "JSON");
+}
+
+app.p5.useconpontopay = function(user_data, pay_data, coupon_code){
+    var notify = {"appid":"wxc6d26827fed8ccc6",
+                    "attach": user_data.grouptype != "亲子跑" ? "100元一般跑" : "200元亲子跑",
+                    "bank_type":"",
+                    "cash_fee":"0",
+                    "device_info":"WEB",
+                    "fee_type":"CNY",
+                    "is_subscribe":"Y",
+                    "mch_id":"1315072801",
+                    "nonce_str":"",
+                    "openid": user_data.openid,
+                    "out_trade_no": user_data.out_trade_no,
+                    "result_code":"SUCCESS",
+                    "return_code":"SUCCESS",
+                    "sign": "",
+                    "time_end": app.template.tool.date("yyyyMMddhhmmss"),
+                    "total_fee":"0",
+                    "trade_type":"COUPON",
+                    "transaction_id": coupon_code
+                };
+
+    $.post(app.api.host + '/wxpay/callback', notify, function(data){
+        var data = typeof data == "object" ? data : JSON.parse(data);
+
+        if(data.rs == "success")
+        {
+            $(".p5-paybtn,.p5-btn1,.p5-btn2").hide();
+            $(".p5-payfinish").show();
+            app.p1.delidCookie("id");
+            alert("支付成功!");
+        }else
+        {
+            alert(data.rs);
+        }
+    }, "JSON");
+
 }
 
 //获取用户所填的信息
@@ -1275,7 +1347,7 @@ var singleName;
 var singleSex;
 app.p5.singlejudge=function(){
      app.p5.getUserinfo_bygetUser();
-     user.out_trade_no = md5(""+$("#idcard-1").val()+"");
+     user.out_trade_no = md5($("#idcard-1").val());
 	if($("#p3-group-5").is(":checked")){
 		singleGroup = "5";
 		user.grouptype = "5km";
@@ -1399,8 +1471,8 @@ app.p5.familyjudge=function(){
     app.p5.getUserinfo_bygetUser();
     
 	if($("#p3-group-family").is(":checked")){
-		familyGroup = "家庭跑";
-		user.grouptype = "家庭跑";
+		familyGroup = "亲子跑";
+		user.grouptype = "亲子跑";
 	}
 	if($("#size-2").val()=="XS"){
         familySize1="XS(160/82A)";
@@ -1457,7 +1529,7 @@ app.p5.familyjudge=function(){
         user.p2_phone = "";
         user.p2_emergency_name = "";
         user.p2_emergency_phone = "";
-        user.out_trade_no = md5(""+$("#idcard-2").val()+"",""+$("#idcard-4").val()+"");
+        user.out_trade_no = md5($("#idcard-2").val()+$("#idcard-4").val());
     }else if(personTwo == true){
     	   if($("#size-3").val()=="XS"){
 	        familySize2="XS(160/82A)";
@@ -1501,7 +1573,7 @@ app.p5.familyjudge=function(){
 	    user.p2_phone = ""+$("#phone-3").val()+"";
 	    user.p2_emergency_name = ""+$("#eperson-3").val()+"";
 	    user.p2_emergency_phone = ""+$("#ephone-3").val()+"";
-	    user.out_trade_no = md5(""+$("#idcard-2").val()+"",""+$("#idcard-3").val()+"",""+$("#idcard-4").val()+"");
+	    user.out_trade_no = md5($("#idcard-2").val()+$("#idcard-3").val()+$("#idcard-4").val());
     }
     
     user.kids_name = ""+$("#username-4").val()+"";

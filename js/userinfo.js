@@ -136,11 +136,11 @@ app.p2.set_userinfo = function(data){
 		size = data[0].p1_teesize;
 		tag = data[0].p1_tag;
 	}
-	if(data[0].grouptype=="家庭跑"){
-		name = data[0].p1_name+" "+data[0].p2_name+" "+data[0].kids_name;
-		sex = data[0].p1_sex+" "+data[0].p2_sex+" "+data[0].kids_sex;
+	if(data[0].grouptype=="亲子跑"){
+		name = data[0].p1_name+" / "+data[0].p2_name+" / "+data[0].kids_name;
+		sex = data[0].p1_sex+" / "+data[0].p2_sex+" / "+data[0].kids_sex;
 		group = data[0].grouptype;
-		size = data[0].p1_teesize+" "+data[0].p2_teesize+" "+data[0].kids_teesize;
+		size = data[0].p1_teesize+" / "+data[0].p2_teesize+" / "+data[0].kids_teesize;
 		tag = data[0].p1_tag;
 	}
     $(".p2-name").html(name);

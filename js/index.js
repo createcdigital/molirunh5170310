@@ -1733,14 +1733,15 @@ app.p5.payment=function(data){
             WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {"appId": jsapi.appId,"nonceStr": jsapi.nonceStr,"package": jsapi.package,"signType": jsapi.signType,"timeStamp": jsapi.timeStamp,"paySign": jsapi.paySign}, function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" )
-                    {                                 	    				        
+                    {
 				        $(".p5-paybtn,.p5-btn1,.p5-btn2").hide();
 		                $(".p5-payfinish").show();
 		                app.p1.delidCookie("id");
 		                alert("支付成功!");
                     }else{
-                    	    user.action = "update";
-                        alert("支付失败!");                       
+                	    user.action = "update";
+                        console.log("=======支付失败!, msg:" + res.err_msg);
+                        alert("支付失败!");
                     }
                 }
             );

@@ -1306,21 +1306,18 @@ app.p5.gotopay = function(user_data, pay_data, use_coupon, coupon_code)
             {
                 app.p5.useconpontopay(user_data, pay_data, coupon_code);
             }
-        }else{
+        }else
+        {
                    if(data.res.indexOf('已报名')!=-1 && data.res.indexOf('未支付')!=-1)
                     {
                         app.p1.setidCookie("id",""+user.p1_card_number+"");
                         if(!use_coupon)
                             app.p5.payment(pay_data);
                         else
-                        {
                             app.p5.useconpontopay(user_data, pay_data, coupon_code);
-                        }
                     }else
-                    {
                         alert(data.rs);
-                    }
-            }
+                    
         }
     }, "JSON");
 }

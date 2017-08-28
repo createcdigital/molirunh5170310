@@ -53,6 +53,7 @@ html, body {
     position: absolute;
     top: 1030px;
     left: 260px;
+    border: 1px solid red;
 }
 .p1 .p1-hitbox {
 	width: 100%;
@@ -90,6 +91,7 @@ html, body {
     top: 1110px;
     left: 260px;
     z-index: 23;
+    border: 1px solid red;
 }
 .p2 .p2-cover {
 	width: 100%;
@@ -122,6 +124,7 @@ html, body {
     top: 1100px;
     left: 260px;
     z-index: 25;
+   border: 1px solid red;
 }
 .p2 .txt,.grouptype {
 	width: auto;

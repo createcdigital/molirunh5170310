@@ -127,7 +127,7 @@ html, body {
 	width: auto;
 	height: auto;
 	position: absolute;
-	top: 465px;
+	top: 450px;
 	left: 315px;
 	font-size: 35px;
 	color: #8ba6e2;
@@ -140,10 +140,10 @@ html, body {
 	top: 640px;
 }
 .p2 .sex {
-	top: 728px;
+	top: 718px;
 }
 .p2 .tag {
-	top: 815px;
+	top: 800px;
 }
 
 .p2 .p2-name,.p2-sex,.p2-group,.p2-tag,.p2-size {

@@ -117,8 +117,8 @@ app.template.tool.random = function(range){
 /*-- api config
 ====================================================== */
 app.api = function(){};
-//app.api.host = "https://molirun.api.createcdigital.com";
-app.api.host = "http://localhost:8000";
+app.api.host = "https://molirun.api.createcdigital.com";
+//app.api.host = "http://localhost:8000";
 
 
 

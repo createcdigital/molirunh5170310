@@ -127,23 +127,23 @@ html, body {
 	width: auto;
 	height: auto;
 	position: absolute;
-	top: 450px;
+	top: 410px;
 	left: 315px;
 	font-size: 35px;
 	color: #8ba6e2;
 	text-align: center;
 }
 .p2 .tee {
-	top: 559px;
+	top: 519px;
 }
 .p2 .name {
-	top: 640px;
+	top: 600px;
 }
 .p2 .sex {
-	top: 718px;
+	top: 680px;
 }
 .p2 .tag {
-	top: 800px;
+	top: 718px;
 }
 
 .p2 .p2-name,.p2-sex,.p2-group,.p2-tag,.p2-size {

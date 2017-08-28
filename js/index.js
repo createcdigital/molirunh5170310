@@ -295,17 +295,17 @@ app.p3.remove_month = function(el,el2){
 };
 app.p3.remove_month2 = function(){
 	$("#year-4").on("change",function(){
-		if($("#year-4").val()==2011){
-			$("#month-4 option[value='4']").remove();
-			$("#month-4 option[value='5']").remove();
-			$("#month-4 option[value='6']").remove();
-			$("#month-4 option[value='7']").remove();
-			$("#month-4 option[value='8']").remove();
+		if($("#year-4").val()==2016){
 			$("#month-4 option[value='9']").remove();
 			$("#month-4 option[value='10']").remove();
 			$("#month-4 option[value='11']").remove();
 			$("#month-4 option[value='12']").remove();
 			if($("#month-4 option[value='1']").val()==undefined){
+                $("#month-4").prepend("<option value='8'>8月</option>");
+                $("#month-4").prepend("<option value='7'>7月</option>");
+                $("#month-4").prepend("<option value='6'>6月</option>");
+                $("#month-4").prepend("<option value='5'>5月</option>");
+                $("#month-4").prepend("<option value='4'>4月</option>");
 				$("#month-4").prepend("<option value='3'>3月</option>");
 				$("#month-4").prepend("<option value='2'>2月</option>");
 				$("#month-4").prepend("<option value='1'>1月</option>");
@@ -314,29 +314,29 @@ app.p3.remove_month2 = function(){
 				$("#month-4 option[value='1']").remove();
 			    $("#month-4 option[value='2']").remove();
 			    $("#month-4 option[value='3']").remove();
-			    if($("#month-4 option[value='4']").val()==undefined){
-					$("#month-4").append("<option value='4'>4月</option>");
-					$("#month-4").append("<option value='5'>5月</option>");
-					$("#month-4").append("<option value='6'>6月</option>");
-					$("#month-4").append("<option value='7'>7月</option>");
-					$("#month-4").append("<option value='8'>8月</option>");
+                $("#month-4 option[value='4']").remove();
+                $("#month-4 option[value='5']").remove();
+                $("#month-4 option[value='6']").remove();
+                $("#month-4 option[value='7']").remove();
+                $("#month-4 option[value='8']").remove();
+			    if($("#month-4 option[value='9']").val()==undefined){
 					$("#month-4").append("<option value='9'>9月</option>");
 					$("#month-4").append("<option value='10'>10月</option>");
 					$("#month-4").append("<option value='11'>11月</option>");
 					$("#month-4").append("<option value='12'>12月</option>");
 				}
 		}else {
-			if($("#month-4 option[value='4']").val()==undefined){
-				$("#month-4").append("<option value='4'>4月</option>");
-				$("#month-4").append("<option value='5'>5月</option>");
-				$("#month-4").append("<option value='6'>6月</option>");
-				$("#month-4").append("<option value='7'>7月</option>");
-				$("#month-4").append("<option value='8'>8月</option>");
+			if($("#month-4 option[value='9']").val()==undefined){
 				$("#month-4").append("<option value='9'>9月</option>");
 				$("#month-4").append("<option value='10'>10月</option>");
 				$("#month-4").append("<option value='11'>11月</option>");
 				$("#month-4").append("<option value='12'>12月</option>");
 			}else if($("#month-4 option[value='1']").val()==undefined){
+                $("#month-4").prepend("<option value='8'>8月</option>");
+                $("#month-4").prepend("<option value='7'>7月</option>");
+                $("#month-4").prepend("<option value='6'>6月</option>");
+                $("#month-4").prepend("<option value='5'>5月</option>");
+                $("#month-4").prepend("<option value='4'>4月</option>");
 				$("#month-4").prepend("<option value='3'>3月</option>");
 				$("#month-4").prepend("<option value='2'>2月</option>");
 				$("#month-4").prepend("<option value='1'>1月</option>");

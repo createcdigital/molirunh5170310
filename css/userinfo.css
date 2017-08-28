@@ -51,7 +51,7 @@ html, body {
     width: 230px;
     height: 120px;
     position: absolute;
-    top: 1030px;
+    top: 980px;
     left: 260px;
     border: 1px solid red;
 }
@@ -88,7 +88,7 @@ html, body {
     width: 230px;
     height: 120px;
     position: absolute;
-    top: 1110px;
+    top: 1080px;
     left: 260px;
     z-index: 23;
     border: 1px solid red;
@@ -121,7 +121,7 @@ html, body {
 	width: 230px;
     height: 120px;
     position: absolute;
-    top: 1100px;
+    top: 1080px;
     left: 260px;
     z-index: 25;
    border: 1px solid red;

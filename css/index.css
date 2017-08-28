@@ -1022,21 +1022,21 @@ html, body {
 	font-size: 30px;
 	color: #5d87ad;
 	position: absolute;
-	top: 220px;
+	top: 190px;
 	left: 0;
 	text-align: cneter !important;
 }
 .p5 .p5-box .scroller .p5-sizebox {
-	top: 314px;
+	top: 290px;
 }
 .p5 .p5-box .scroller .p5-tagbox {
-	top: 412px;
+	top: 390px;
 }
 .p5 .p5-box .scroller .p5-usernamebox {
-	top: 511px;
+	top: 490px;
 }
 .p5 .p5-box .scroller .p5-sexbox {
-	top: 610px;
+	top: 580px;
 }
 .p5 .p5-box .scroller .p5-groupbox .p5-group {
 	display: block;

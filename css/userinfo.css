@@ -38,14 +38,15 @@ html, body {
   left: 0;
 }
 .p1 .p1-number {
-    width: 366px;
+    width: 50%;
     height: 55px;
     border: 0px solid pink;
     font-size: 24px;
     color: #8393ca;
     position: absolute;
-    top: 588px;
-    left: 191px
+    top: 54%;
+    left: 25%;
+    border: 3px solid #f089a6;
 }
 .p1 .p1-btn {
     width: 230px;

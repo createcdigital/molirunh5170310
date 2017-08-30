@@ -1029,13 +1029,13 @@ html, body {
 .p5 .p5-box .scroller .p5-sizebox {
 	top: 290px;
 }
-.p5 .p5-box .scroller .p5-tagbox {
+.p5 .p5-box .scroller .p5-usernamebox {
 	top: 390px;
 }
-.p5 .p5-box .scroller .p5-usernamebox {
+.p5 .p5-box .scroller .p5-sexbox {
 	top: 490px;
 }
-.p5 .p5-box .scroller .p5-sexbox {
+.p5 .p5-box .scroller .p5-tagbox {
 	top: 580px;
 }
 .p5 .p5-box .scroller .p5-groupbox .p5-group {

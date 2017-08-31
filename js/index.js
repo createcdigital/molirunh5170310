@@ -521,12 +521,17 @@ app.p3.bind_touch_event = function(){
 		app.p3.check_children();
 		app.p3.check_idcard();
 		if($(".p3-group-family").is(":checked")){
-			if(flag && flag1 &&flag2){
+			if((flag || flag1) && flag2){
 				app.template.swiper.next();
 			}else {
 				$(".p3 .p3-coverbox").css("display","block");
 			}
 		}
+        flag= false;
+        flag1= false;
+        flag2= false;
+        flag3= false;
+        flag4= false;
 	});
 	// 浮层确定按钮
 	$(".p3-cover").on("touchend",function(){
@@ -602,61 +607,85 @@ var tw_patt = new RegExp(/\d{8}/); // 台胞证
 var flag = false;
 var flag1 = false;
 var flag2 = false;
+
+var flag3 = false;
+var flag4 = false;
 // 验证亲子跑
 app.p3.check_personOne = function(){
-	var card_number = $("#idcard-2").val();
-	if($("#username-2").val()==""){
-		app.p3.alertTxt("成年人1姓名不能为空!")
-	}else if(($("#idchange-2").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-2").val() == "1" && $("#idchange-2").val() == "") || ($("#idchange-2").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-2").val()== "3" && !tw_patt.test(card_number))){
-		app.p3.alertTxt("成年人1证件号码输入有误!")
-	}else if($("#phone-2").val()=="" || !phone_patt.test($("#phone-2").val())){
-		app.p3.alertTxt("成年人1手机号码输入有误!")
-	}else if($("#username-2").val()==$("#eperson-2").val() || $("#eperson-2").val() == ""){
-		app.p3.alertTxt("成年人1紧急联系人姓名不能重复或者为空!")
-	}else if($("#phone-2").val()==$("#ephone-2").val() || !phone_patt.test($("#ephone-2").val())){
-		app.p3.alertTxt("成年人1紧急联系人手机不能重复或者为空!")
-	}else {
-		flag = true;
-	}
+    var card_number = $("#idcard-2").val();
+
+    if($("#username-2").val()=="" && $("#idcard-2").val()==""  && $("#phone-2").val()=="" && $("#eperson-2").val()=="" && $("#ephone-2").val()==""){
+           flag3 = true;
+           flag = true;
+    }else
+    {
+        	if($("#username-2").val()==""){
+        		app.p3.alertTxt("成年人1姓名不能为空!")
+        	}else if(($("#idchange-2").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-2").val() == "1" && $("#idchange-2").val() == "") || ($("#idchange-2").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-2").val()== "3" && !tw_patt.test(card_number))){
+        		app.p3.alertTxt("成年人1证件号码输入有误!")
+        	}else if($("#phone-2").val()=="" || !phone_patt.test($("#phone-2").val())){
+        		app.p3.alertTxt("成年人1手机号码输入有误!")
+        	}else if($("#username-2").val()==$("#eperson-2").val() || $("#eperson-2").val() == ""){
+        		app.p3.alertTxt("成年人1紧急联系人姓名不能重复或者为空!")
+        	}else if($("#phone-2").val()==$("#ephone-2").val() || !phone_patt.test($("#ephone-2").val())){
+        		app.p3.alertTxt("成年人1紧急联系人手机不能重复或者为空!")
+        	}else {
+        		flag = true;
+        	}
+    }
 
 };
 app.p3.check_personTwo = function(){
-	if(flag){
-		var card_number = $("#idcard-3").val();
-		if($("#username-3").val()==""){
-			app.p3.alertTxt("成年人2姓名不能为空!")
-		}else if(($("#idchange-3").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-3").val() == "1" && $("#idchange-3").val() == "") || ($("#idchange-3").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-3").val()== "3" && !tw_patt.test(card_number))){
-			app.p3.alertTxt("成年人2证件号码输入有误!")
-		}else if($("#phone-3").val()=="" || !phone_patt.test($("#phone-3").val())){
-			app.p3.alertTxt("成年人2手机号码输入有误!")
-		}else if($("#username-3").val()==$("#eperson-3").val() || $("#eperson-3").val() == ""){
-			app.p3.alertTxt("成年人2紧急联系人姓名不能重复或者为空!")
-		}else if($("#phone-3").val()==$("#ephone-3").val() || !phone_patt.test($("#ephone-3").val())){
-			app.p3.alertTxt("成年人2紧急联系人手机不能重复或者为空!")
-		}else {
-			flag1 = true;
-		}
-	}
+    var card_number = $("#idcard-3").val();
+     if($("#username-3").val()=="" && $("#idcard-3").val()==""  && $("#phone-3").val()=="" && $("#eperson-3").val()=="" && $("#ephone-3").val()==""){
+           flag4= true;
+           flag1 = true;
+    }else
+    {
+        	if(flag){
+        		if($("#username-3").val()==""){
+        			app.p3.alertTxt("成年人2姓名不能为空!")
+        		}else if(($("#idchange-3").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-3").val() == "1" && $("#idchange-3").val() == "") || ($("#idchange-3").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-3").val()== "3" && !tw_patt.test(card_number))){
+        			app.p3.alertTxt("成年人2证件号码输入有误!")
+        		}else if($("#phone-3").val()=="" || !phone_patt.test($("#phone-3").val())){
+        			app.p3.alertTxt("成年人2手机号码输入有误!")
+        		}else if($("#username-3").val()==$("#eperson-3").val() || $("#eperson-3").val() == ""){
+        			app.p3.alertTxt("成年人2紧急联系人姓名不能重复或者为空!")
+        		}else if($("#phone-3").val()==$("#ephone-3").val() || !phone_patt.test($("#ephone-3").val())){
+        			app.p3.alertTxt("成年人2紧急联系人手机不能重复或者为空!")
+        		}else {
+        			flag1 = true;
+        		}
+        	}
+    }
 };
 app.p3.check_children = function(){
-	if(flag&&flag1){
-		var card_number = $("#idcard-4").val();
-		if($("#username-4").val()==""){
-			app.p3.alertTxt("未成年人姓名不能为空!")
-		}else if(($("#idchange-4").val()== "0" && !childid_patt.test(card_number)) || ($("#idchange-4").val() == "1" && $("#idchange-4").val() == "") || ($("#idchange-4").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-4").val()== "3" && !tw_patt.test(card_number))){
-			app.p3.alertTxt("未成年人证件号码输入有误!")
-		} else if($("#parent").val()==""){
-			app.p3.alertTxt("法定监护人姓名不能为空!")
-		} else if($("#parent-phone").val()=="" || !phone_patt.test($("#parent-phone").val())){
-			app.p3.alertTxt("法定监护人手机号码输入有误!")
-		}else if($("#eperson-4").val()==$("#parent").val() || $("#eperson-4").val() == ""){
-			app.p3.alertTxt("未成年人紧急联系人姓名不能重复或者为空!")
-		}else if($("#parent-phone").val()==$("#ephone-4").val() || !phone_patt.test($("#ephone-4").val())){
-			app.p3.alertTxt("未成年人紧急联系人手机不能重复或者为空!")
-		}else {
-			flag2 = true;
-		}
-	}
+
+    if(flag3 && flag4)
+    {
+         app.p3.alertTxt("至少要填写一个成年人信息!")
+    }
+    else
+    {
+            if(flag && flag1){
+                        var card_number = $("#idcard-4").val();
+                        if($("#username-4").val()==""){
+                            app.p3.alertTxt("未成年人姓名不能为空!")
+                        }else if(($("#idchange-4").val()== "0" && !childid_patt.test(card_number)) || ($("#idchange-4").val() == "1" && $("#idchange-4").val() == "") || ($("#idchange-4").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-4").val()== "3" && !tw_patt.test(card_number))){
+                            app.p3.alertTxt("未成年人证件号码输入有误!")
+                        } else if($("#parent").val()==""){
+                            app.p3.alertTxt("法定监护人姓名不能为空!")
+                        } else if($("#parent-phone").val()=="" || !phone_patt.test($("#parent-phone").val())){
+                            app.p3.alertTxt("法定监护人手机号码输入有误!")
+                        }else if($("#eperson-4").val()==$("#parent").val() || $("#eperson-4").val() == ""){
+                            app.p3.alertTxt("未成年人紧急联系人姓名不能重复或者为空!")
+                        }else if($("#parent-phone").val()==$("#ephone-4").val() || !phone_patt.test($("#ephone-4").val())){
+                            app.p3.alertTxt("未成年人紧急联系人手机不能重复或者为空!")
+                        }else {
+                            flag2 = true;
+                        }
+        }   
+    }
 };
 app.p3.check_idcard = function(){
 	if($("#idchange-2").val()== "0" && $("#idchange-3").val()== "0" && $("#idchange-4").val()== "0"){
@@ -715,6 +744,9 @@ app.p4.bind_touch_event = function(){
 		flag = false;
 		flag1 = false;
 		flag2 = false;
+        flag3 = false;
+        flag4 = false;
+
 	});
      $("#p4-name,#p4-adress,#p4-phone").on("focus", function(){
         $(".p4-hint").css("display","none");

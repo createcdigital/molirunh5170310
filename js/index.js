@@ -950,7 +950,7 @@ app.p5.getUserInfobyAjax = function(data){
 	    
 	    //p3
 	    	$(".p3-group-family").attr("checked","checked");
-	    	//成年参赛者1
+	    	//成年报名者1
 	    	if(data.p1_teesize=="XS(160/82A)"){
 	        $("#size-2 option[value='XS']").prop("selected","selected");
 
@@ -1012,7 +1012,7 @@ app.p5.getUserInfobyAjax = function(data){
 	    $("#phone-2").val(''+data.p1_phone+'');
 	    $("#eperson-2").val(''+data.p1_emergency_name+'');
 	    $("#ephone-2").val(''+data.p1_emergency_phone+'');
-	    //成年参赛者2
+	    //成年报名者2
 	    if(data.p2_name != ""){
 	    	    	if(data.p2_teesize=="XS(160/82A)"){
 		        $("#size-3 option[value='XS']").prop("selected","selected");

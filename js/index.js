@@ -1719,7 +1719,9 @@ app.p5.getUser = function(){
 };
 //  pay
 app.p5.payment=function(data){
+    console.log(data);
    $.post('https://pay.wechat.createcdigital.com/molirun-wxpayapi/wxpay/pub/pay.php', data, function(data){
+      console.log("22222----"+data);
        callpay(JSON.parse(data));
    }, "JSON");
 	var callpay = function(jsapi){

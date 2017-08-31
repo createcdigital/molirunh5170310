@@ -529,7 +529,7 @@ app.p3.bind_touch_event = function(){
 		}
 	});
 	// 浮层确定按钮
-	$(".p3-coverBtn").on("touchend",function(){
+	$(".p3-cover").on("touchend",function(){
 		$(".p3 .p3-coverbox").css("display","none");
 	});
 

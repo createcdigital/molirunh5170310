@@ -9,11 +9,11 @@ app.template.swiper = function(){};
 app.template.swiper.mySwiper = {};
 app.template.swiper.init = function(){
 	app.template.swiper.bind();
-    //判断是否有cookie 
+    //判断是否有cookie
     if(app.p1.getidCookie("id")){
     	  console.info(app.p1.getidCookie("id"));
     	  app.p5.getuserinfobycardnumber(app.p1.getidCookie("id"));
-    	  
+
     }else {
     	  console.info("none");
     }
@@ -67,7 +67,7 @@ app.template.swiper.to = function(index){
 
 /* Landscape  引导用户竖屏显示 */
 app.template.Landscape = function(){};
-app.template.Landscape.init= function(){	
+app.template.Landscape.init= function(){
     var Landscape = new landscape({
         pic: 'js/motion/landscape.png',
         picZoom: 3,
@@ -87,7 +87,7 @@ app.template.touch.init = function(){
 	// fastclick
    FastClick.attach(document.body);
    document.body.addEventListener("touchmove", app.template.touch.eventlistener_handler, false);
-   
+
 };
 
 //tool
@@ -126,26 +126,26 @@ app.api.host = "https://molirun.api.createcdigital.com";
 ====================================================== */
 app.p1 = function(){};
 app.p1.init = function(){
-    
+
 };
 app.p1.getidCookie = function(name){
-	var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); 
+	var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
     if(arr=document.cookie.match(reg)){
     	   return unescape(arr[2]);
     }else {
     	   return null;
-    }	
+    }
 };
 app.p1.setidCookie = function(name,value){
-	var Days = 30; 
-    var exp = new Date(); 
-    exp.setTime(exp.getTime() + Days*24*60*60*1000); 
-    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString(); 
+	var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
 };
 app.p1.delidCookie = function(name){
-	var exp = new Date(); 
-    exp.setTime(exp.getTime() - 1); 
-    var cval= app.p1.getidCookie(name); 
+	var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval= app.p1.getidCookie(name);
     if(cval!=null){
     	  document.cookie= name + "="+cval+";expires="+exp.toGMTString();
     }
@@ -182,7 +182,7 @@ app.p1.show_layout = function(){
        $(".cover-btn1,.cover-btn2").css("display","none");
        $(".p1 .p1-cover .cover-wrapper").css("opacity","0");
        app.template.swiper.to(2);
-    });   
+    });
 };
 
 app.p1.destory = function(){};
@@ -192,7 +192,7 @@ app.p1.destory = function(){};
 ====================================================== */
 app.p2 = function(){};
 app.p2.init = function(){
-	
+
 };
 app.p2.bind_touch_event = function(){
 	//返回
@@ -229,7 +229,7 @@ app.p2.show_layout = function(){
        $(".p2 .p2-cover .cover-wrapper2").css("opacity","0");
        app.template.swiper.to(2);
     });
-	
+
 }
 app.p2.destory = function(){};
 
@@ -241,8 +241,8 @@ app.p3.init = function(){
     app.p3.check_group();
 	$(".p3-group-5,.p3-group-10,.p3-group-family").change(function(){
 		app.p3.check_group();
-	});	
-	
+	});
+
 	app.p3.remove_month("#year-1","#month-1");
 	app.p3.remove_month("#year-2","#month-2");
 	app.p3.remove_month("#year-3","#month-3");
@@ -251,7 +251,7 @@ app.p3.init = function(){
 		console.info("true");
 		app.p5.selectedYearandMonth();
 	}
-	
+
 };
 app.p3.check_group = function(){
 	if($(".p3-group-family").is(":checked")){
@@ -302,7 +302,7 @@ app.p3.remove_month = function(el,el2){
 			}
 		}
 
-	});	
+	});
 };
 app.p3.remove_month2 = function(){
 	$("#year-4").on("change",function(){
@@ -350,7 +350,7 @@ app.p3.remove_month2 = function(){
 				$("#month-4").prepend("<option value='1'>1月</option>");
 			}
 		}
-	});		
+	});
 };
 app.p3.checkstock_bygrouptype = function(){
 	//查询库存信息
@@ -394,7 +394,7 @@ app.p3.checkstock_bygrouptype = function(){
         	  	 $(".p3-btn2").hide();
              alert("很抱歉！本次活动5公里,10公里的T恤尺码已没有库存！");
         	  }
-        	         	  
+
         	  // 家庭 T恤尺码库存
         	  if(data[0].f_xs <= 0){
         	  	 $("#size-2 option[value='XS']").remove();
@@ -436,9 +436,9 @@ app.p3.checkstock_bygrouptype = function(){
         	  	 $(".p3-btn4").hide();
              alert("很抱歉！本次活动亲子跑的T恤尺码已没有库存！");
         	  }
-         	  
+
         }
-   });	
+   });
 };
 app.p3.disabled_singletextinput = function(){
     $("#username-1").attr("disabled", "disabled");
@@ -474,6 +474,10 @@ var idcard1;
 var idcard2;
 var idcard3;
 var idcard4;
+var idcard5 = false;
+var idcard6 = false;
+var idcard7 = false;
+var idcard8 = false;
 
 app.p3.bind_touch_event = function(){
 	// 两个返回按钮
@@ -486,26 +490,30 @@ app.p3.bind_touch_event = function(){
 		var phone_patt = new RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/); // 手机号码
 	    var id_patt = new RegExp(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/); // 身份证
 	    var hkm_patt = new RegExp(/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/); // 港澳
-	    var tw_patt = new RegExp(/\d{8}/); // 台胞证	
+	    var tw_patt = new RegExp(/\d{8}/); // 台胞证
 		if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
-			if($("#username-1").val()!="" && $("#idcard-1").val()!="" && $("#phone-1").val()!="" && phone_patt.test($("#phone-1").val()) && $("#eperson-1").val()!="" && $("#ephone-1").val()!="" && phone_patt.test($("#ephone-1").val()) && $("#phone-1").val()!=$("#ephone-1").val() && $("#username-1").val()!=$("#eperson-1").val()){
-				var card_number = $("#idcard-1").val();
-				console.info(card_number);
-				if(($("#idchange-1").val()== "0" && id_patt.test(card_number)) || ($("#idchange-1").val() == "1" && $("#idchange-1").val() != "") || ($("#idchange-1").val()== "2" && hkm_patt.test(card_number)) || ($("#idchange-1").val()== "3" && tw_patt.test(card_number))){
-					idcard1 = true;
-					app.template.swiper.next();
-				}else {
-					$(".p3 .p3-coverbox").css("display","block");
-					idcard1 = false;
-				}
+			var a = false;
+			var card_number = $("#idcard-1").val();
+			if($("#username-1").val()==""){
+				app.p3.alertTxt("姓名不能为空!")
+			}else if(($("#idchange-1").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-1").val() == "1" && $("#idchange-1").val() == "") || ($("#idchange-1").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-1").val()== "3" && !tw_patt.test(card_number))){
+				app.p3.alertTxt("证件号码输入有误!")
+			}else if($("#phone-1").val()=="" || !phone_patt.test($("#phone-1").val())){
+				app.p3.alertTxt("手机号码输入有误!")
+			}else if($("#username-1").val()==$("#eperson-1").val() || $("#eperson-1").val() == ""){
+				app.p3.alertTxt("紧急联系人姓名不能重复或者为空!")
+			}else if($("#phone-1").val()==$("#ephone-1").val() || !phone_patt.test($("#ephone-1").val())){
+				app.p3.alertTxt("紧急联系人手机不能重复或者为空!")
 			}else {
+				a = true;
+				app.template.swiper.next();
+			}
+			if(!a){
 				$(".p3 .p3-coverbox").css("display","block");
 			}
-		}else {
-//			$(".p3 .p3-coverbox").css("display","block");
-		}			
+		}
 	});
-	
+
 	//亲子跑 确定按钮
 	$(".p3-btn4").on("touchend",function(){
 		app.p3.check_personOne();
@@ -513,7 +521,7 @@ app.p3.bind_touch_event = function(){
 		app.p3.check_children();
 		app.p3.check_idcard();
 		if($(".p3-group-family").is(":checked")){
-			if((personOne==true&&personTwo=="empty"&&children==true&&checkidcard==true) || (personOne==true&&personTwo==true&&children==true&&checkidcard==true)){
+			if(flag && flag1 &&flag2){
 				app.template.swiper.next();
 			}else {
 				$(".p3 .p3-coverbox").css("display","block");
@@ -523,34 +531,8 @@ app.p3.bind_touch_event = function(){
 	// 浮层确定按钮
 	$(".p3-coverBtn").on("touchend",function(){
 		$(".p3 .p3-coverbox").css("display","none");
-		if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
-			app.p3.checkValue_one();
-		}
-		if($(".p3-group-family").is(":checked")){
-			app.p3.checkValue_two();
-			app.p3.checkValue_three();
-			app.p3.checkValue_four();
-		}
-		
 	});
-	//input blur
-	$("#idcard-1,#phone-1,#ephone-1").on("blur",function(){
-		$(this).css("color","#8393ca");
-		idcard1 = true;
-	});
-	$("#idcard-2,#phone-2,#ephone-2").on("blur",function(){
-		$(this).css("color","#8393ca");
-		idcard2 = true;
-	});
-	$("#idcard-3,#phone-3,#ephone-3").on("blur",function(){
-		$(this).css("color","#8393ca");
-		idcard3 = true;
-	});
-	$("#idcard-4,#parent-phone,#ephone-4").on("blur",function(){
-		$(this).css("color","#8393ca");
-		idcard4 = true;
-	});
-		
+
     /* debug */
     $(".debug-5km").click(function(){
         var random = app.template.tool.random(9);
@@ -597,50 +579,16 @@ app.p3.bind_touch_event = function(){
         $(".p3-btn4").show();
     });
 };
-app.p3.checkValue_one = function(){
-	if(idcard1==false){
-		$("#idcard-1").css("color","red");
-	}
-	if(!phone_patt.test($("#phone-1").val())){
-		$("#phone-1").css("color","red");
-	}
-	if(!phone_patt.test($("#ephone-1").val())){
-		$("#ephone-1").css("color","red");
-	}
-};
 
-app.p3.checkValue_two = function(){
-	if(idcard2==false){
-		$("#idcard-2").css("color","red");
+app.p3.alertTxt = function (text) {
+	var M = {};
+	if(M.dialog1){
+		return M.dialog1.show();
 	}
-	if(!phone_patt.test($("#phone-2").val())){
-		$("#phone-2").css("color","red");
-	}
-	if(!phone_patt.test($("#ephone-2").val())){
-		$("#ephone-2").css("color","red");
-	}
-};
-app.p3.checkValue_three = function(){
-	if(idcard3==false){
-		$("#idcard-3").css("color","red");
-	}
-	if(!phone_patt.test($("#phone-3").val())){
-		$("#phone-3").css("color","red");
-	}
-	if(!phone_patt.test($("#ephone-3").val())){
-		$("#ephone-3").css("color","red");
-	}
-};
-app.p3.checkValue_four = function(){
-	if(idcard4==false){
-		$("#idcard-4").css("color","red");
-	}
-	if(!phone_patt.test($("#parent-phone").val())){
-		$("#parent-phone").css("color","red");
-	}
-	if(!phone_patt.test($("#ephone-4").val())){
-		$("#ephone-4").css("color","red");
-	}
+	M.dialog1 = jqueryAlert({
+		'content' : ""+text+"",
+		'closeTime' : 2000
+	})
 };
 var personOne;
 var personTwo;
@@ -650,52 +598,64 @@ var phone_patt = new RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9
 var id_patt = new RegExp(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/); // 身份证
 var childid_patt = new RegExp(/^[1-9]\d{5}20[01][0-9]((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/); // 儿童身份证
 var hkm_patt = new RegExp(/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/); // 港澳通行证号码
-var tw_patt = new RegExp(/\d{8}/); // 台胞证	
+var tw_patt = new RegExp(/\d{8}/); // 台胞证
+var flag = false;
+var flag1 = false;
+var flag2 = false;
 // 验证亲子跑
 app.p3.check_personOne = function(){
-	if($("#username-2").val()!="" && $("#idcard-2").val()!="" && $("#phone-2").val()!="" && phone_patt.test($("#phone-2").val()) && $("#eperson-2").val()!="" && $("#ephone-2").val()!="" && phone_patt.test($("#ephone-2").val()) && $("#phone-2").val()!=$("#ephone-2").val() && $("#username-2").val()!=$("#eperson-2").val()){
-		var card_number = $("#idcard-2").val();
-		if(($("#idchange-2").val()== "0" && id_patt.test(card_number)) || ($("#idchange-2").val() == "1" && $("#idchange-2").val() != "") || ($("#idchange-2").val()== "2" && hkm_patt.test(card_number)) || ($("#idchange-2").val()== "3" && tw_patt.test(card_number))){
-			personOne = true;
-			idcard2 = true;
-		}else {		
-			personOne = false;
-			idcard2 = false;
-		}
+	var card_number = $("#idcard-2").val();
+	if($("#username-2").val()==""){
+		app.p3.alertTxt("成年人1姓名不能为空!")
+	}else if(($("#idchange-2").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-2").val() == "1" && $("#idchange-2").val() == "") || ($("#idchange-2").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-2").val()== "3" && !tw_patt.test(card_number))){
+		app.p3.alertTxt("成年人1证件号码输入有误!")
+	}else if($("#phone-2").val()=="" || !phone_patt.test($("#phone-2").val())){
+		app.p3.alertTxt("成年人1手机号码输入有误!")
+	}else if($("#username-2").val()==$("#eperson-2").val() || $("#eperson-2").val() == ""){
+		app.p3.alertTxt("成年人1紧急联系人姓名不能重复或者为空!")
+	}else if($("#phone-2").val()==$("#ephone-2").val() || !phone_patt.test($("#ephone-2").val())){
+		app.p3.alertTxt("成年人1紧急联系人手机不能重复或者为空!")
 	}else {
-		personOne = false;
+		flag = true;
 	}
+
 };
 app.p3.check_personTwo = function(){
-	if($("#username-3").val()!="" && $("#idcard-3").val()!="" && $("#phone-3").val()!="" && phone_patt.test($("#phone-3").val()) && $("#eperson-3").val()!="" && $("#ephone-3").val()!="" && phone_patt.test($("#ephone-3").val()) && $("#phone-3").val()!=$("#ephone-3").val() && $("#username-3").val()!=$("#eperson-3").val()){
+	if(flag){
 		var card_number = $("#idcard-3").val();
-		if(($("#idchange-3").val()== "0" && id_patt.test(card_number)) || ($("#idchange-3").val() == "1" && $("#idchange-3").val() != "") || ($("#idchange-3").val()== "2" && hkm_patt.test(card_number)) || ($("#idchange-3").val()== "3" && tw_patt.test(card_number))){
-			idcard3 = true;
-			personTwo = true;
+		if($("#username-3").val()==""){
+			app.p3.alertTxt("成年人2姓名不能为空!")
+		}else if(($("#idchange-3").val()== "0" && !id_patt.test(card_number)) || ($("#idchange-3").val() == "1" && $("#idchange-3").val() == "") || ($("#idchange-3").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-3").val()== "3" && !tw_patt.test(card_number))){
+			app.p3.alertTxt("成年人2证件号码输入有误!")
+		}else if($("#phone-3").val()=="" || !phone_patt.test($("#phone-3").val())){
+			app.p3.alertTxt("成年人2手机号码输入有误!")
+		}else if($("#username-3").val()==$("#eperson-3").val() || $("#eperson-3").val() == ""){
+			app.p3.alertTxt("成年人2紧急联系人姓名不能重复或者为空!")
+		}else if($("#phone-3").val()==$("#ephone-3").val() || !phone_patt.test($("#ephone-3").val())){
+			app.p3.alertTxt("成年人2紧急联系人手机不能重复或者为空!")
 		}else {
-			personTwo = false;
-			idcard3 = false;
+			flag1 = true;
 		}
-	}else if($("#username-3").val()=="" && $("#idcard-3").val()=="" && $("#phone-3").val()=="" && $("#eperson-3").val()=="" && $("#ephone-3").val()==""){
-		console.info("表单为空");
-		personTwo = "empty";
-		idcard3 = true;
-	}else {		
-		personTwo = false;
 	}
 };
 app.p3.check_children = function(){
-	if($("#username-4").val()!="" && $("#idcard-4").val()!="" && $("#parent").val()!="" && $("#parent-phone").val()!="" && phone_patt.test($("#parent-phone").val()) && $("#eperson-4").val()!="" && $("#ephone-4").val()!="" && phone_patt.test($("#ephone-4").val()) && $("#parent-phone").val()!=$("#ephone-4").val() && $("#username-4").val()!=$("#eperson-4").val()!=$("#parent").val()){
+	if(flag&&flag1){
 		var card_number = $("#idcard-4").val();
-		if(($("#idchange-4").val()== "0" && childid_patt.test(card_number)) || ($("#idchange-4").val() == "1" && $("#idchange-4").val() != "") || ($("#idchange-4").val()== "2" && hkm_patt.test(card_number)) || ($("#idchange-4").val()== "3" && tw_patt.test(card_number))){
-			idcard4 = true;
-			children = true;
-		}else {			
-			children = false;
-			idcard4 = false;
+		if($("#username-4").val()==""){
+			app.p3.alertTxt("未成年人姓名不能为空!")
+		}else if(($("#idchange-4").val()== "0" && !childid_patt.test(card_number)) || ($("#idchange-4").val() == "1" && $("#idchange-4").val() == "") || ($("#idchange-4").val()== "2" && !hkm_patt.test(card_number)) || ($("#idchange-4").val()== "3" && !tw_patt.test(card_number))){
+			app.p3.alertTxt("未成年人证件号码输入有误!")
+		} else if($("#parent").val()==""){
+			app.p3.alertTxt("法定监护人姓名不能为空!")
+		} else if($("#parent-phone").val()=="" || !phone_patt.test($("#parent-phone").val())){
+			app.p3.alertTxt("法定监护人手机号码输入有误!")
+		}else if($("#eperson-4").val()==$("#parent").val() || $("#eperson-4").val() == ""){
+			app.p3.alertTxt("未成年人紧急联系人姓名不能重复或者为空!")
+		}else if($("#parent-phone").val()==$("#ephone-4").val() || !phone_patt.test($("#ephone-4").val())){
+			app.p3.alertTxt("未成年人紧急联系人手机不能重复或者为空!")
+		}else {
+			flag2 = true;
 		}
-	}else {		
-		children = false;
 	}
 };
 app.p3.check_idcard = function(){
@@ -752,6 +712,9 @@ app.p4.bind_touch_event = function(){
 	// 返回按钮
 	$(".p4-btn1").on("touchend",function(){
 		app.template.swiper.prev();
+		flag = false;
+		flag1 = false;
+		flag2 = false;
 	});
      $("#p4-name,#p4-adress,#p4-phone").on("focus", function(){
         $(".p4-hint").css("display","none");
@@ -770,10 +733,10 @@ app.p4.bind_touch_event = function(){
     	    }else if($(".p4-get").is(":checked")){
     	    	   app.template.swiper.next();
     	    }else {
-    	    	   
+
     	    }
     });
-		
+
 };
 
 
@@ -784,7 +747,7 @@ app.p4.destory = function(){};
 app.p5 = function(){};
 app.p5.init = function(){
 	if(app.p1.getidCookie("id")){
-		app.p5.getUserInfobyAjax(user);		
+		app.p5.getUserInfobyAjax(user);
 		if(user.grouptype == "亲子跑"){
 			getFamilyId1 = user.p1_card_number;
 			getFamilyId2 = user.p2_card_number;
@@ -792,11 +755,11 @@ app.p5.init = function(){
 		}else {
 			getId = user.p1_card_number;
 		}
-		
+
 	}else {
 		app.p5.getUserInfobyChart();
 	}
-	
+
 };
 var getId;
 var getFamilyId1;
@@ -809,14 +772,14 @@ app.p5.getUserInfobyChart = function(){
 		$(".p5-group").html(''+singleGroup+'公里');
 	    $(".p5-size").html(''+singleSize+'');
 	    $(".p5-tag").html(''+singleTag+'');
-	    $(".p5-username").html(''+singleName+''); 
+	    $(".p5-username").html(''+singleName+'');
 	    $(".p5-sex").html(''+singleSex+'');
 	}else if($(".p3-group-family").is(":checked")){
 		app.p5.familyjudge();
 		$(".p5-group").html(''+familyGroup+'');
 	    $(".p5-size").html(''+familySize1+' / '+familySize2+' / '+familySize3+'');
 	    $(".p5-tag").html(''+familyTag+'');
-	    $(".p5-username").html(''+familyName1+' / '+familyName2+' / '+familyName3+''); 
+	    $(".p5-username").html(''+familyName1+' / '+familyName2+' / '+familyName3+'');
 	    $(".p5-sex").html(''+familySex1+' / '+familySex2+' / '+familySex3+'');
 	};
 	//进入第五页 判断用户选取的赛事包寄送方式
@@ -844,7 +807,7 @@ app.p5.getUserInfobyAjax = function(data){
 		$(".p5-group").html(''+data.grouptype.split("km")[0]+'公里');
 	    $(".p5-size").html(''+data.p1_teesize+'');
 	    $(".p5-tag").html(''+data.p1_tag+'');
-	    $(".p5-username").html(''+data.p1_name+''); 
+	    $(".p5-username").html(''+data.p1_name+'');
 	    $(".p5-sex").html(''+data.p1_sex+'');
 	    //p3
 	    if(data.grouptype == "5km"){
@@ -948,14 +911,14 @@ app.p5.getUserInfobyAjax = function(data){
 
 	    }
 	    app.p1.delidCookie("id");
-	    
+
 	}else if(data.grouptype == "亲子跑"){
 		$(".p5-group").html(''+data.grouptype+'');
 	    $(".p5-size").html(''+data.p1_teesize+','+' '+data.p2_teesize+','+' '+data.kids_teesize+'');
 	    $(".p5-tag").html(''+data.p1_tag+'');
-	    $(".p5-username").html(''+data.p1_name+','+' '+data.p2_name+','+' '+data.kids_name+''); 
+	    $(".p5-username").html(''+data.p1_name+','+' '+data.p2_name+','+' '+data.kids_name+'');
 	    $(".p5-sex").html(''+data.p1_sex+','+' '+data.p2_sex+','+' '+data.kids_sex+'');
-	    
+
 	    //p3
 	    	$(".p3-group-family").attr("checked","checked");
 	    	//成年参赛者1
@@ -1169,7 +1132,7 @@ app.p5.getUserInfobyAjax = function(data){
 
 	    }
 	    app.p1.delidCookie("id");
-	    
+
 	}
 	//寄送方式
 	if(data.pakcage_get_way == "顺丰到付"){
@@ -1192,7 +1155,7 @@ app.p5.getUserInfobyAjax = function(data){
         $(".p5-onsite-part1").show();
         $(".p5-onsite-part2").show();
 	};
-	
+
 };
 app.p5.selectedYearandMonth = function(){
 	if(user.grouptype=="5km" || user.grouptype=="10km"){
@@ -1225,11 +1188,11 @@ app.p5.selectedYearandMonth = function(){
 	    $("#month-4 option[value='"+cutmonth3+"']").prop("selected","selected");
 
 	}
-	
+
 };
 app.p5.bind_touch_event = function(){
 	$(".p5-btn1").on("touchend",function(){
-		app.p1.delidCookie("id");		
+		app.p1.delidCookie("id");
 		app.template.swiper.to(2);
 	});
 	$(".p5-btn2").on("touchend",function(){
@@ -1474,7 +1437,7 @@ app.p5.singlejudge=function(){
         user.kids_guardian_name = "";
         user.kids_guardian_phone = "";
         user.kids_emergency_name = "";
-        user.kids_emergency_phone = "";    
+        user.kids_emergency_phone = "";
 };
 var familyGroup;
 var familySize1;
@@ -1488,9 +1451,9 @@ var familySex1;
 var familySex2;
 var familySex3;
 app.p5.familyjudge=function(){
-	
+
     app.p5.getUserinfo_bygetUser();
-    
+
 	if($("#p3-group-family").is(":checked")){
 		familyGroup = "亲子跑";
 		user.grouptype = "亲子跑";
@@ -1596,7 +1559,7 @@ app.p5.familyjudge=function(){
 	    user.p2_emergency_phone = ""+$("#ephone-3").val()+"";
 	    user.out_trade_no = md5($("#idcard-2").val()+$("#idcard-3").val()+$("#idcard-4").val());
     }
-    
+
     user.kids_name = ""+$("#username-4").val()+"";
     user.kids_birthday = ""+$("#year-4").val()+""+"-"+""+$("#month-4").val()+"";
     if($("#size-4").val()=="XXXS"){
@@ -1667,7 +1630,7 @@ app.p5.familyjudge=function(){
         user.pakcage_get_phone = "";
         user.pakcage_get_address = "";
     }
-    
+
 }
 
 app.p5.getuserinfobycardnumber = function(card_number){
@@ -1682,9 +1645,9 @@ app.p5.getuserinfobycardnumber = function(card_number){
 //      	   app.p5.getUserInfobyAjax(data[0]);
         	   user = data[0];
         	   console.info(user);
-        	   app.template.swiper.to(4);        	   
+        	   app.template.swiper.to(4);
         }
-   });	
+   });
 };
 
 app.p5.getUserinfo_bygetUser = function(){
@@ -1698,7 +1661,7 @@ app.p5.getUserinfo_bygetUser = function(){
         user.province = app.p5.wechatUserInfo.original.province;
         user.subscribe_time = "";
 };
-app.p5.getCookie = function(c_name){        
+app.p5.getCookie = function(c_name){
     if (document.cookie.length>0)
     {
         var c_start=document.cookie.indexOf(c_name + "=");
@@ -1765,7 +1728,7 @@ app.p5.destory = function(){};
     app.template.swiper.init();
     app.template.touch.init();
     app.template.Landscape.init();
-	
+
 	/* page init */
     app.template.swiper.on_pageslideend = function(index){
         switch(index)
@@ -1790,15 +1753,15 @@ app.p5.destory = function(){};
                 break;
         }
     };
-   
+
 	//点击事件初始化
-	
+
 	app.p1.bind_touch_event();
 	app.p2.bind_touch_event();
 	app.p3.bind_touch_event();
 	app.p4.bind_touch_event();
 	app.p5.bind_touch_event();
-	
+
 })();
 
 

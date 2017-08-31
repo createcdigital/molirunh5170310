@@ -268,39 +268,49 @@ app.p3.check_group = function(){
 };
 app.p3.remove_month = function(el,el2){
 	$(""+el+"").on("change",function(){
-		if($(""+el+"").val()==1999){
+		if($(""+el+"").val()==2004 || ($(""+el+"").val()==1999&&$("#p3-group-10").is(":checked"))){
+			$(""+el2+" option[value='11']").remove();
+			$(""+el2+" option[value='12']").remove();
+		}else {
+			if($(""+el2+" option[value='11']").val()==undefined){
+				$(""+el2+"").append("<option value='11'>11月</option>");
+				$(""+el2+"").append("<option value='12'>12月</option>");
+			}
+		}
+
+		if($(""+el+"").val()==1951){
+			$(""+el2+" option[value='1']").remove();
+			$(""+el2+" option[value='2']").remove();
+			$(""+el2+" option[value='3']").remove();
 			$(""+el2+" option[value='4']").remove();
 			$(""+el2+" option[value='5']").remove();
 			$(""+el2+" option[value='6']").remove();
 			$(""+el2+" option[value='7']").remove();
 			$(""+el2+" option[value='8']").remove();
 			$(""+el2+" option[value='9']").remove();
-			$(""+el2+" option[value='10']").remove();
-			$(""+el2+" option[value='11']").remove();
-			$(""+el2+" option[value='12']").remove();
 		}else {
 			if($(""+el2+" option[value='4']").val()==undefined){
-				$(""+el2+"").append("<option value='4'>4月</option>");
-				$(""+el2+"").append("<option value='5'>5月</option>");
-				$(""+el2+"").append("<option value='6'>6月</option>");
-				$(""+el2+"").append("<option value='7'>7月</option>");
-				$(""+el2+"").append("<option value='8'>8月</option>");
-				$(""+el2+"").append("<option value='9'>9月</option>");
-				$(""+el2+"").append("<option value='10'>10月</option>");
-				$(""+el2+"").append("<option value='11'>11月</option>");
-				$(""+el2+"").append("<option value='12'>12月</option>");
-			}			
+				$(""+el2+"").prepend("<option value='9'>9月</option>");
+				$(""+el2+"").prepend("<option value='8'>8月</option>");
+				$(""+el2+"").prepend("<option value='7'>7月</option>");
+				$(""+el2+"").prepend("<option value='6'>6月</option>");
+				$(""+el2+"").prepend("<option value='5'>5月</option>");
+				$(""+el2+"").prepend("<option value='4'>4月</option>");
+				$(""+el2+"").prepend("<option value='3'>3月</option>");
+				$(""+el2+"").prepend("<option value='2'>2月</option>");
+				$(""+el2+"").prepend("<option value='1'>1月</option>");
+			}
 		}
+
 	});	
 };
 app.p3.remove_month2 = function(){
 	$("#year-4").on("change",function(){
 		if($("#year-4").val()==2016){
-			$("#month-4 option[value='9']").remove();
-			$("#month-4 option[value='10']").remove();
 			$("#month-4 option[value='11']").remove();
 			$("#month-4 option[value='12']").remove();
 			if($("#month-4 option[value='1']").val()==undefined){
+				$("#month-4").prepend("<option value='9'>9月</option>");
                 $("#month-4").prepend("<option value='8'>8月</option>");
                 $("#month-4").prepend("<option value='7'>7月</option>");
                 $("#month-4").prepend("<option value='6'>6月</option>");
@@ -310,7 +320,7 @@ app.p3.remove_month2 = function(){
 				$("#month-4").prepend("<option value='2'>2月</option>");
 				$("#month-4").prepend("<option value='1'>1月</option>");
 			}
-		}else if($("#year-4").val()==2000){
+		}else if($("#year-4").val()==1999){
 				$("#month-4 option[value='1']").remove();
 			    $("#month-4 option[value='2']").remove();
 			    $("#month-4 option[value='3']").remove();
@@ -319,19 +329,18 @@ app.p3.remove_month2 = function(){
                 $("#month-4 option[value='6']").remove();
                 $("#month-4 option[value='7']").remove();
                 $("#month-4 option[value='8']").remove();
-			    if($("#month-4 option[value='9']").val()==undefined){
-					$("#month-4").append("<option value='9'>9月</option>");
+				$("#month-4 option[value='9']").remove();
+			    if($("#month-4 option[value='10']").val()==undefined){
 					$("#month-4").append("<option value='10'>10月</option>");
 					$("#month-4").append("<option value='11'>11月</option>");
 					$("#month-4").append("<option value='12'>12月</option>");
 				}
 		}else {
-			if($("#month-4 option[value='9']").val()==undefined){
-				$("#month-4").append("<option value='9'>9月</option>");
-				$("#month-4").append("<option value='10'>10月</option>");
+			if($("#month-4 option[value='11']").val()==undefined){
 				$("#month-4").append("<option value='11'>11月</option>");
 				$("#month-4").append("<option value='12'>12月</option>");
 			}else if($("#month-4 option[value='1']").val()==undefined){
+				$("#month-4").prepend("<option value='9'>9月</option>");
                 $("#month-4").prepend("<option value='8'>8月</option>");
                 $("#month-4").prepend("<option value='7'>7月</option>");
                 $("#month-4").prepend("<option value='6'>6月</option>");
@@ -950,7 +959,7 @@ app.p5.getUserInfobyAjax = function(data){
 	    
 	    //p3
 	    	$(".p3-group-family").attr("checked","checked");
-	    	//成年报名者1
+	    	//成年参赛者1
 	    	if(data.p1_teesize=="XS(160/82A)"){
 	        $("#size-2 option[value='XS']").prop("selected","selected");
 
@@ -1012,7 +1021,7 @@ app.p5.getUserInfobyAjax = function(data){
 	    $("#phone-2").val(''+data.p1_phone+'');
 	    $("#eperson-2").val(''+data.p1_emergency_name+'');
 	    $("#ephone-2").val(''+data.p1_emergency_phone+'');
-	    //成年报名者2
+	    //成年参赛者2
 	    if(data.p2_name != ""){
 	    	    	if(data.p2_teesize=="XS(160/82A)"){
 		        $("#size-3 option[value='XS']").prop("selected","selected");
@@ -1792,3 +1801,5 @@ app.p5.destory = function(){};
 	app.p5.bind_touch_event();
 	
 })();
+
+

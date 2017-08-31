@@ -306,34 +306,34 @@
 <script>
 	window.onload=function(){
 		//背景音乐自动播放方法
-	    function audioAutoPlay(id){
-	        var audio = document.getElementById(id),
-	            play = function(){
-	                audio.play();
-	                document.removeEventListener("touchstart",play, false);
-	            };
-	        audio.play();
-	        document.addEventListener("WeixinJSBridgeReady", function () {
-	            play();
-	        }, false);
-	        document.addEventListener("touchstart",play, false);
-	    }
-	    audioAutoPlay("audio-player");
-	    //audio
-	    $('.audio-icon').addClass('audio-icon-animation');
-	    var audio = document.getElementById('audio-player');
-	    $('.audio-icon').on('touchend',function(){
-	        $('.audio-icon').toggleClass('audio-icon-animation');
-	        if(audio!==null){
-	            if(!audio.paused)
-	            {
-	                audio.pause();
-	            }else {
-	                audio.play();
-	            }
-	        }
-	    });
-	    
+		function audioAutoPlay(id){
+			var audio = document.getElementById(id),
+					play = function(){
+						audio.play();
+						document.removeEventListener("touchstart",play, false);
+					};
+			audio.play();
+			document.addEventListener("WeixinJSBridgeReady", function () {
+				play();
+			}, false);
+			document.addEventListener("touchstart",play, false);
+		}
+		audioAutoPlay("audio-player");
+		//audio
+		$('.audio-icon').addClass('audio-icon-animation');
+		var audio = document.getElementById('audio-player');
+		$('.audio-icon').on('touchend',function(){
+			$('.audio-icon').toggleClass('audio-icon-animation');
+			if(audio!==null){
+				if(!audio.paused)
+				{
+					audio.pause();
+				}else {
+					audio.play();
+				}
+			}
+		});
+
 		var myScroll = new IScroll('#cover-wrapper');
 		var myScroll2 = new IScroll('#cover-wrapper2');
 		var myScroll3 = new IScroll('#p3-box',{
@@ -343,60 +343,121 @@
 		var myScroll4 = new IScroll('#p4-box',{
 			bounce: false
 		});
-        var myScroll4 = new IScroll('#p5-box',{
-            bounce: false
-        });
+		var myScroll4 = new IScroll('#p5-box',{
+			bounce: false
+		});
 //		家庭跑定位锚点
 		$("#p3-group-family").change(function(){
-		   	 myScroll3.scrollToElement("#hit",0);    
-	    });
-	    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-	    	    
-	    function selectYear(el){
-	    	   var age = document.querySelector(""+el+"");
-		    for ( var i = 1999; i >= 1956; i--){
-		     var option = document.createElement ('option');
-		     option.value = i;
-		     var txt = document.createTextNode (i+"年");
-		     option.appendChild (txt);
-		     if(i==1998)
-			      option.selected = true;
-		     age.appendChild (option);
-		    }
-	    }
-	    function selectYear2(el){
-	    	   var age = document.querySelector(""+el+"");
-		    for ( var i = 2016; i >= 2000; i--){
-		     var option = document.createElement ('option');
-		     option.value = i;
-		     var txt = document.createTextNode (i+"年");
-		     option.appendChild (txt);
-		     if(i==2001)
-			      option.selected = true;
-		     age.appendChild (option);
-		    }
-	    }
-	    function selectMonth(el){
-	    	   var age1 = document.querySelector(""+el+"");  
-			  for ( var i = 1; i <= 12; i++){
-			     var option = document.createElement ('option');
-			     option.value = i;
-			     var txt = document.createTextNode (i+"月");
-			     option.appendChild (txt);
-			     if(i==1)
-			      option.selected = true;
-			     age1.appendChild (option);
-			  }
-	    }
-	    
-	    selectYear(".year-1");
-	    selectMonth(".month-1");
-	    selectYear(".year-2");
-	    selectMonth(".month-2");
-	    selectYear(".year-3");
-	    selectMonth(".month-3");
-	    selectYear2(".year-4");
-	    selectMonth(".month-4");	   	    
+			myScroll3.scrollToElement("#hit",0);
+			$(".year-1").html("");
+			$(".year-2").html("");
+			$(".year-3").html("");
+			$(".year-4").html("");
+			$(".month-1").html("");
+			$(".month-2").html("");
+			$(".month-3").html("");
+			$(".month-4").html("");
+			selectYear(".year-1");
+			selectMonth(".month-1");
+			selectYear(".year-2");
+			selectMonth(".month-2");
+			selectYear(".year-3");
+			selectMonth(".month-3");
+			selectYear2(".year-4");
+			selectMonth(".month-4");
+		});
+		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+		function selectYear(el){
+			var age = document.querySelector(""+el+"");
+			for ( var i = 2004; i >= 1951; i--){
+				var option = document.createElement ('option');
+				option.value = i;
+				var txt = document.createTextNode (i+"年");
+				option.appendChild (txt);
+				if(i==2003)
+					option.selected = true;
+				age.appendChild (option);
+			}
+		}
+		function selectYear2(el){
+			var age = document.querySelector(""+el+"");
+			for ( var i = 2016; i >= 1999; i--){
+				var option = document.createElement ('option');
+				option.value = i;
+				var txt = document.createTextNode (i+"年");
+				option.appendChild (txt);
+				if(i==2000)
+					option.selected = true;
+				age.appendChild (option);
+			}
+		}
+		function selectMonth(el){
+			var age1 = document.querySelector(""+el+"");
+			for ( var i = 1; i <= 12; i++){
+				var option = document.createElement ('option');
+				option.value = i;
+				var txt = document.createTextNode (i+"月");
+				option.appendChild (txt);
+				if(i==1)
+					option.selected = true;
+				age1.appendChild (option);
+			}
+		}
+
+		selectYear(".year-1");
+		selectMonth(".month-1");
+		selectYear(".year-2");
+		selectMonth(".month-2");
+		selectYear(".year-3");
+		selectMonth(".month-3");
+		selectYear2(".year-4");
+		selectMonth(".month-4");
+
+		//2017-08-31添加
+
+		function selectYearClon(el){
+			var age = document.querySelector(""+el+"");
+			for ( var i = 1999; i >= 1951; i--){
+				var option = document.createElement ('option');
+				option.value = i;
+				var txt = document.createTextNode (i+"年");
+				option.appendChild (txt);
+				if(i==1998)
+					option.selected = true;
+				age.appendChild (option);
+			}
+		}
+		$("#p3-group-10").click(function () {
+			$(".year-1").html("");
+			$(".year-2").html("");
+			$(".year-3").html("");
+			$(".year-4").html("");
+			$(".month-1").html("");
+			$(".month-2").html("");
+			$(".month-3").html("");
+			$(".month-4").html("");
+			selectYearClon(".year-1");
+			selectMonth(".month-1");
+		});
+		$("#p3-group-5").click(function () {
+			$(".year-1").html("");
+			$(".year-2").html("");
+			$(".year-3").html("");
+			$(".year-4").html("");
+			$(".month-1").html("");
+			$(".month-2").html("");
+			$(".month-3").html("");
+			$(".month-4").html("");
+			selectYear(".year-1");
+			selectMonth(".month-1");
+			selectYear(".year-2");
+			selectMonth(".month-2");
+			selectYear(".year-3");
+			selectMonth(".month-3");
+			selectYear2(".year-4");
+			selectMonth(".month-4");
+		});
 	}
 </script>
 <script src="js/index.js"></script>

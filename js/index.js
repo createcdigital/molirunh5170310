@@ -640,6 +640,7 @@ app.p3.check_personTwo = function(){
      if($("#username-3").val()=="" && $("#idcard-3").val()==""  && $("#phone-3").val()=="" && $("#eperson-3").val()=="" && $("#ephone-3").val()==""){
            flag4= true;
            flag1 = true;
+           personTwo= false;
     }else
     {
         	if(flag){
@@ -655,6 +656,7 @@ app.p3.check_personTwo = function(){
         			app.p3.alertTxt("成年人2紧急联系人手机不能重复或者为空!")
         		}else {
         			flag1 = true;
+                     personTwo= true;
         		}
         	}
     }

@@ -330,8 +330,7 @@ app.p3.remove_month2 = function(){
                 $("#month-4 option[value='7']").remove();
                 $("#month-4 option[value='8']").remove();
 				$("#month-4 option[value='9']").remove();
-			    if($("#month-4 option[value='10']").val()==undefined){
-					$("#month-4").append("<option value='10'>10月</option>");
+			    if($("#month-4 option[value='11']").val()==undefined){
 					$("#month-4").append("<option value='11'>11月</option>");
 					$("#month-4").append("<option value='12'>12月</option>");
 				}

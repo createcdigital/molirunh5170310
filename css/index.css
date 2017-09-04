@@ -42,7 +42,7 @@ html, body {
    background: url(../img/p1-btn1.png) no-repeat;
    background-size: 100% 100%;
    position: absolute;
-   top:	1034px;
+   top:	85%;
    left: 67px;
    z-index: 5;
 }
@@ -52,7 +52,7 @@ html, body {
    background: url(../img/p1-btn2.png) no-repeat;
    background-size: 100% 100%;
    position: absolute;
-   top:	1034px;
+   top:	85%;
    left: 440px;
    z-index: 5;
 }

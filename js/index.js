@@ -487,7 +487,7 @@ app.p3.bind_touch_event = function(){
 
 	// 5公里 10公里 确定按钮
 	$(".p3-btn2").on("touchend",function(){
-		var phone_patt = new RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/); // 手机号码
+		var phone_patt = new RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/); // 手机号码
 	    var id_patt = new RegExp(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/); // 身份证
 	    var hkm_patt = new RegExp(/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/); // 港澳
 	    var tw_patt = new RegExp(/\d{8}/); // 台胞证
@@ -1234,7 +1234,7 @@ app.p5.bind_touch_event = function(){
 		app.template.swiper.prev();
 	});
 	//确认并支付
-	$(".p5-paybtn").on("touchend",function(){
+	$(".p5-paybtn").click(function(){
 
     	if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
     		app.p5.singlejudge();

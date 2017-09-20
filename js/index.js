@@ -11,11 +11,11 @@ app.template.swiper.init = function(){
 	app.template.swiper.bind();
     //判断是否有cookie
     if(app.p1.getidCookie("id")){
-    	  console.info(app.p1.getidCookie("id"));
+    	  //// console.info(app.p1.getidCookie("id"));
     	  app.p5.getuserinfobycardnumber(app.p1.getidCookie("id"));
 
     }else {
-    	  console.info("none");
+    	  // console.info("none");
     }
 //  app.p1.delidCookie("id");
 };
@@ -110,6 +110,10 @@ app.template.tool.date = function (fmt) {
     return fmt;
 }
 
+app.template.tool.get_time = function () {
+    return new Date().getTime();
+};
+
 app.template.tool.random = function(range){
     return Math.floor((Math.random() * range) + 1);
 };
@@ -117,9 +121,11 @@ app.template.tool.random = function(range){
 /*-- api config
 ====================================================== */
 app.api = function(){};
-app.api.host = "https://molirun.api.createcdigital.com";
-//app.api.host = "http://localhost:8000";
+//app.api.host = "https://molirun.api.createcdigital.com";
+app.api.host = "http://localhost:8000";
 
+app.wxpayapi = function(){};
+app.wxpayapi.host = "https://pay.wechat.createcdigital.com/molirun-wxpayapi";
 
 
 /*-- p1
@@ -248,7 +254,7 @@ app.p3.init = function(){
 	app.p3.remove_month("#year-3","#month-3");
 	app.p3.remove_month2();
 	if(userGetfromCookie == true){
-		console.info("true");
+		// console.info("true");
 		app.p5.selectedYearandMonth();
 	}
 
@@ -355,7 +361,7 @@ app.p3.remove_month2 = function(){
 app.p3.checkstock_bygrouptype = function(){
 	//查询库存信息
 	$.getJSON(app.api.host + '/stock/get', function(data){
-        console.info(data[0]);
+        // console.info(data[0]);
         if(data.length>0){
         	  if(data[0].group_type_family<=0){
         	  	 $("#p3-group-family").remove();
@@ -1246,10 +1252,10 @@ app.p5.bind_touch_event = function(){
     		}
     		if(getId==user.p1_card_number){
     			user.action = "update";
-    			console.info("update");
+    			// console.info("update");
     		}else {
     			user.action = "add";
-    			console.info("add");
+    			// console.info("add");
     		}
     	}
     	if($(".p3-group-family").is(":checked")){
@@ -1257,10 +1263,10 @@ app.p5.bind_touch_event = function(){
     		var paydata = {"openid": user.openid, "grouptype": "亲子跑", "outtradeno": user.out_trade_no};
     		if(getFamilyId1==user.p1_card_number && getFamilyId2==user.p2_card_number && getFamilyId3==user.kids_card_number){
     			user.action = "update";
-    			console.info("update");
+    			// console.info("update");
     		}else {
     			user.action = "add";
-    			console.info("add");
+    			// console.info("add");
     		}
     	}
 
@@ -1301,7 +1307,7 @@ app.p5.gotopay = function(user_data, pay_data, use_coupon, coupon_code)
 {
     $.post(app.api.host + '/user/add', user_data, function(data){
         var data = typeof data == "object" ? data : JSON.parse(data);
-        console.info(data.rs);
+        // console.info(data.rs);
         if(data.rs=="success" || (data.rs.indexOf('已报名')!=-1 && data.rs.indexOf('未支付')!=-1))
         {
             app.p1.setidCookie("id",""+user.p1_card_number+"");
@@ -1365,7 +1371,7 @@ var singleName;
 var singleSex;
 app.p5.singlejudge=function(){
      app.p5.getUserinfo_bygetUser();
-     user.out_trade_no = md5(new Date().getTime() + $("#idcard-1").val());
+     user.out_trade_no = md5(app.template.tool.get_time() + $("#idcard-1").val());
 	if($("#p3-group-5").is(":checked")){
 		singleGroup = "5";
 		user.grouptype = "5km";
@@ -1547,7 +1553,7 @@ app.p5.familyjudge=function(){
         user.p2_phone = "";
         user.p2_emergency_name = "";
         user.p2_emergency_phone = "";
-        user.out_trade_no = md5(new Date().getTime() + $("#idcard-2").val()+$("#idcard-4").val());
+        user.out_trade_no = md5(app.template.tool.get_time() + $("#idcard-2").val()+$("#idcard-4").val());
     }else if(personTwo == true){
     	   if($("#size-3").val()=="XS"){
 	        familySize2="XS(160/82A)";
@@ -1591,7 +1597,7 @@ app.p5.familyjudge=function(){
 	    user.p2_phone = ""+$("#phone-3").val()+"";
 	    user.p2_emergency_name = ""+$("#eperson-3").val()+"";
 	    user.p2_emergency_phone = ""+$("#ephone-3").val()+"";
-	    user.out_trade_no = md5(new Date().getTime() + $("#idcard-2").val()+$("#idcard-3").val()+$("#idcard-4").val());
+	    user.out_trade_no = md5(app.template.tool.get_time() + $("#idcard-2").val()+$("#idcard-3").val()+$("#idcard-4").val());
     }
 
     user.kids_name = ""+$("#username-4").val()+"";
@@ -1671,14 +1677,14 @@ app.p5.getuserinfobycardnumber = function(card_number){
 	$.getJSON(app.api.host + '/user/id/' + card_number, function(data){
         var data = typeof data == "object" ? data : JSON.parse(data);
         if(data[0].pay_status=="已支付"){
-        	   console.info("已支付");
+        	   // console.info("已支付");
         	   app.p1.delidCookie("id");
         }else if(data[0].pay_status=="未支付"){
-        	   console.info(app.p1.getidCookie("id"));
-        	   console.info(data[0]);
+        	   // console.info(app.p1.getidCookie("id"));
+        	   // console.info(data[0]);
 //      	   app.p5.getUserInfobyAjax(data[0]);
         	   user = data[0];
-        	   console.info(user);
+        	   // console.info(user);
         	   app.template.swiper.to(4);
         }
    });
@@ -1719,42 +1725,54 @@ app.p5.getUser = function(){
 };
 //  pay
 app.p5.payment=function(data){
-    console.log(data);
-   $.post('https://pay.wechat.createcdigital.com/molirun-wxpayapi/wxpay/pub/pay.php', data, function(data){
-      console.log("22222----"+data);
-      //callpay(JSON.parse(data));
-      callpay(typeof data == 'object' ? data : JSON.parse(data));
-   }, "JSON");
-	var callpay = function(jsapi){
-            if (typeof WeixinJSBridge == "undefined"){
-                if( document.addEventListener ){
-                    document.addEventListener('WeixinJSBridgeReady', jsapicall, false);
-                }else if (document.attachEvent){
-                    document.attachEvent('WeixinJSBridgeReady', jsapicall);
-                    document.attachEvent('onWeixinJSBridgeReady', jsapicall);
-                }
-            }else{
-                jsapicall(jsapi);
-            }
-        };
+    var data_param = data;
 
-        var jsapicall = function(jsapi){
-            WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {"appId": jsapi.appId,"nonceStr": jsapi.nonceStr,"package": jsapi.package,"signType": jsapi.signType,"timeStamp": jsapi.timeStamp,"paySign": jsapi.paySign}, function(res){
-                    if(res.err_msg == "get_brand_wcpay_request:ok" )
-                    {
-				        $(".p5-paybtn,.p5-btn1,.p5-btn2").hide();
-		                $(".p5-payfinish").show();
-		                app.p1.delidCookie("id");
-		                alert("支付成功!");
-                    }else{
-                	    user.action = "update";
-                        console.log("=======支付失败!, msg:" + res.err_msg);
-                        alert("支付失败!");
-                    }
+    // for debug when outtradeno is same
+    // data_param.outtradeno = "8455e85022176dd957b986493b2f1822";
+
+   $.post(app.wxpayapi.host + '/wxpay/pub/pay.php', data_param, function(data){
+      var jsapi_parameters = typeof data == 'object' ? data : JSON.parse(data)
+
+        if(data.appId)
+            callpay(jsapi_parameters);
+        else
+        {
+            alert("支付错误！请您[截屏本页]并发送给公众号后台，稍后客服会帮您处理！("
+                    + data_param.outtradeno + "#"+ app.template.tool.date("yyyyMMddhhmmss") +")"
+                );
+        }
+
+   }, "JSON");
+
+	var callpay = function(jsapi){
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsapicall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsapicall);
+                document.attachEvent('onWeixinJSBridgeReady', jsapicall);
+            }
+        }else{
+            jsapicall(jsapi);
+        }
+    };
+
+    var jsapicall = function(jsapi){
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {"appId": jsapi.appId,"nonceStr": jsapi.nonceStr,"package": jsapi.package,"signType": jsapi.signType,"timeStamp": jsapi.timeStamp,"paySign": jsapi.paySign}, function(res){
+                if(res.err_msg == "get_brand_wcpay_request:ok" )
+                {
+			        $(".p5-paybtn,.p5-btn1,.p5-btn2").hide();
+	                $(".p5-payfinish").show();
+	                app.p1.delidCookie("id");
+	                alert("支付成功!");
+                }else{
+            	    user.action = "update";
+                    alert("用户取消支付或支付系统错误！");
                 }
-            );
-        };
+            }
+        );
+    };
 };
 
 app.p5.destory = function(){};

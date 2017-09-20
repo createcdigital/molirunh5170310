@@ -1234,7 +1234,7 @@ app.p5.bind_touch_event = function(){
 		app.template.swiper.prev();
 	});
 	//确认并支付
-	$(".p5-paybtn").click(function(){
+	$(".p5-paybtn").on("click",function(){
         alert("开始支付");
     	if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
     		app.p5.singlejudge();
@@ -1272,7 +1272,7 @@ app.p5.bind_touch_event = function(){
             app.p5.gotopay(user, paydata);
         }else if(coupon_code != app.p5.coupon_code)
         {
-             alert("邀请码支付");
+             alert("优惠码支付");
             $.getJSON(app.api.host + '/coupon/verify/' + coupon_code, function(data){
                 var data = typeof data == "object" ? data : JSON.parse(data);
 

@@ -1365,7 +1365,7 @@ var singleName;
 var singleSex;
 app.p5.singlejudge=function(){
      app.p5.getUserinfo_bygetUser();
-     user.out_trade_no = md5($("#idcard-1").val());
+     user.out_trade_no = md5(new Date().getTime() + $("#idcard-1").val());
 	if($("#p3-group-5").is(":checked")){
 		singleGroup = "5";
 		user.grouptype = "5km";
@@ -1547,7 +1547,7 @@ app.p5.familyjudge=function(){
         user.p2_phone = "";
         user.p2_emergency_name = "";
         user.p2_emergency_phone = "";
-        user.out_trade_no = md5($("#idcard-2").val()+$("#idcard-4").val());
+        user.out_trade_no = md5(new Date().getTime() + $("#idcard-2").val()+$("#idcard-4").val());
     }else if(personTwo == true){
     	   if($("#size-3").val()=="XS"){
 	        familySize2="XS(160/82A)";
@@ -1591,7 +1591,7 @@ app.p5.familyjudge=function(){
 	    user.p2_phone = ""+$("#phone-3").val()+"";
 	    user.p2_emergency_name = ""+$("#eperson-3").val()+"";
 	    user.p2_emergency_phone = ""+$("#ephone-3").val()+"";
-	    user.out_trade_no = md5($("#idcard-2").val()+$("#idcard-3").val()+$("#idcard-4").val());
+	    user.out_trade_no = md5(new Date().getTime() + $("#idcard-2").val()+$("#idcard-3").val()+$("#idcard-4").val());
     }
 
     user.kids_name = ""+$("#username-4").val()+"";

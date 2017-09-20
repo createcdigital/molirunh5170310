@@ -392,7 +392,7 @@ app.p3.checkstock_bygrouptype = function(){
         	  }
         	  if(data[0].p_xs <= 0 && data[0].p_s <= 0 && data[0].p_m <= 0 && data[0].p_l <= 0 && data[0].p_xl <= 0 && data[0].p_xxl <= 0){
         	  	 $(".p3-btn2").hide();
-             alert("很抱歉！本次活动5公里,10公里的T恤尺码已没有库存！");
+                 alert("很抱歉！本次活动5公里,10公里的T恤尺码已没有库存！");
         	  }
 
         	  // 家庭 T恤尺码库存
@@ -1235,7 +1235,7 @@ app.p5.bind_touch_event = function(){
 	});
 	//确认并支付
 	$(".p5-paybtn").click(function(){
-
+        alert("开始支付");
     	if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
     		app.p5.singlejudge();
     		var paydata;
@@ -1268,9 +1268,11 @@ app.p5.bind_touch_event = function(){
         var coupon_code = $("#coupon").val();
         if(!coupon_code)
         {
+            alert("现金支付");
             app.p5.gotopay(user, paydata);
         }else if(coupon_code != app.p5.coupon_code)
         {
+             alert("邀请码支付");
             $.getJSON(app.api.host + '/coupon/verify/' + coupon_code, function(data){
                 var data = typeof data == "object" ? data : JSON.parse(data);
 

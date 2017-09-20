@@ -1234,7 +1234,8 @@ app.p5.bind_touch_event = function(){
 		app.template.swiper.prev();
 	});
 	//确认并支付
-	$(".p5-paybtn").on("touchend",function(){
+  $(".p5-paybtn").on("touchend",function(){
+
     	if($(".p3-group-5").is(":checked") || $(".p3-group-10").is(":checked")){
     		app.p5.singlejudge();
     		var paydata;

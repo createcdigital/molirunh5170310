@@ -358,100 +358,164 @@ app.p3.remove_month2 = function(){
 		}
 	});
 };
+
+// 库存处理
+app.p3.disable_single_grouptype = function(){
+
+    $("#p3-group-5,#p3-group-10").attr("disabled", "disabled");
+    $("#p3-group-5, #p3-group-10").css("background-color", "#ebebe4");
+    $("#p3-group-family").attr("checked","checked");
+
+    app.p3.check_group();
+
+    //$("#p3-box").scrollTop(1100);
+
+    alert("5公里和10公里名额已满，现只接受亲子跑报名！点击【确定】继续报名。");
+};
+
+app.p3.disable_family_grouptype = function(){
+
+    $("#p3-group-family").attr("disabled", "disabled");
+    $("#p3-group-family").css("background-color", "#ebebe4");
+
+    $("#p3-group-5").attr("checked","checked");
+
+    app.p3.check_group();
+
+    alert("亲子跑名额已满，现只接受5公里和10公里报名！点击【确定】继续报名。");
+};
+
+app.p3.disable_all_grouptype = function(){
+
+    $("#p3-group-5,#p3-group-10").attr("disabled", "disabled");
+    $("#p3-group-5, #p3-group-10").css("background-color", "#ebebe4");
+    $("#p3-group-family").attr("disabled", "disabled");
+    $("#p3-group-family").css("background-color", "#ebebe4");
+
+    app.p3.disabled_singletextinput();
+    app.p3.disabled_familytextinput();
+
+    $(".p3-btn2,.p3-btn4").hide();
+
+    alert("很抱歉！本次活动报名人数名额已满！");
+};
+
+app.p3.process_stock = function(stock_data){
+
+    // 组别库存处理
+    if(stock_data.group_type_single < 1 && stock_data.group_type_family < 1)
+        app.p3.disable_all_grouptype();
+    else if(stock_data.group_type_single < 1)
+        app.p3.disable_single_grouptype();
+    else if(stock_data.group_type_family < 1)
+        app.p3.disable_family_grouptype();
+
+      // 个人 T恤尺码库存
+      if(stock_data.p_xs <= 0){
+         $("#size-1 option[value='XS']").remove();
+      }
+      if(stock_data.p_s <= 0){
+         $("#size-1 option[value='S']").remove();
+      }
+      if(stock_data.p_m <= 0){
+         $("#size-1 option[value='M']").remove();
+      }
+      if(stock_data.p_l <= 0){
+         $("#size-1 option[value='L']").remove();
+      }
+      if(stock_data.p_xl <= 0){
+         $("#size-1 option[value='XL']").remove();
+      }
+      if(stock_data.p_xxl <= 0){
+         $("#size-1 option[value='XXL']").remove();
+      }
+      if(stock_data.p_xs <= 0 && stock_data.p_s <= 0 && stock_data.p_m <= 0 && stock_data.p_l <= 0 && stock_data.p_xl <= 0 && stock_data.p_xxl <= 0){
+         $(".p3-btn2").hide();
+         alert("很抱歉！本次活动5公里,10公里的T恤所有尺码均已没有库存！");
+      }
+
+      // 家庭 T恤尺码库存
+      if(stock_data.f_xs <= 0){
+         $("#size-2 option[value='XS']").remove();
+         $("#size-3 option[value='XS']").remove();
+         $("#size-4 option[value='XS']").remove();
+      }
+      if(stock_data.f_s <= 0){
+         $("#size-2 option[value='S']").remove();
+         $("#size-3 option[value='S']").remove();
+         $("#size-4 option[value='S']").remove();
+      }
+      if(stock_data.f_m <= 0){
+         $("#size-2 option[value='M']").remove();
+         $("#size-3 option[value='M']").remove();
+         $("#size-4 option[value='M']").remove();
+      }
+      if(stock_data.f_l <= 0){
+         $("#size-2 option[value='L']").remove();
+         $("#size-3 option[value='L']").remove();
+         $("#size-4 option[value='L']").remove();
+      }
+      if(stock_data.f_xl <= 0){
+         $("#size-2 option[value='XL']").remove();
+         $("#size-3 option[value='XL']").remove();
+         $("#size-4 option[value='XL']").remove();
+      }
+      if(stock_data.f_xxl <= 0){
+         $("#size-2 option[value='XXL']").remove();
+         $("#size-3 option[value='XXL']").remove();
+         $("#size-4 option[value='XXL']").remove();
+      }
+      if(stock_data.kids_110 <= 0){
+         $("#size-4 option[value='XXXS']").remove();
+      }
+      if(stock_data.kids_130 <= 0){
+         $("#size-4 option[value='XXS']").remove();
+      }
+      if(stock_data.f_xs <= 0 && stock_data.f_s <= 0 && stock_data.f_m <= 0 && stock_data.f_l <= 0 && stock_data.f_xl <= 0 && stock_data.f_xxl <= 0 && stock_data.kids_110 <= 0 && stock_data.kids_130 <= 0){
+         $(".p3-btn4").hide();
+         alert("很抱歉！本次活动亲子跑的T恤所有尺码均已没有库存！");
+      }
+};
+
 app.p3.checkstock_bygrouptype = function(){
-	//查询库存信息
+
 	$.getJSON(app.api.host + '/stock/get', function(data){
-        // console.info(data[0]);
-        if(data.length>0){
-        	  if(data[0].group_type_family<=0){
-        	  	 $("#p3-group-family").remove();
-        	  	 $("#p3-group-5").attr("checked","checked");
-        	  }
-        	  if(data[0].group_type_single<=0){
-        	  	if($("#p3-group-family")){
-        	  		$("#p3-group-5,#p3-group-10").remove();
-        	  	    $("#p3-group-family").attr("checked","checked");
-        	  	}
-        	  }
-        	  if(data[0].group_type_family<=0 && data[0].group_type_single<=0){
-        	  	 $(".p3-btn2,.p3-btn4").hide();
-             alert("很抱歉！本次活动报名人数名额已满！");
-        	  }
-        	  // 个人 T恤尺码库存
-        	  if(data[0].p_xs <= 0){
-        	  	 $("#size-1 option[value='XS']").remove();
-        	  }
-        	  if(data[0].p_s <= 0){
-        	  	 $("#size-1 option[value='S']").remove();
-        	  }
-        	  if(data[0].p_m <= 0){
-        	  	 $("#size-1 option[value='M']").remove();
-        	  }
-        	  if(data[0].p_l <= 0){
-        	  	 $("#size-1 option[value='L']").remove();
-        	  }
-        	  if(data[0].p_xl <= 0){
-        	  	 $("#size-1 option[value='XL']").remove();
-        	  }
-        	  if(data[0].p_xxl <= 0){
-        	  	 $("#size-1 option[value='XXL']").remove();
-        	  }
-        	  if(data[0].p_xs <= 0 && data[0].p_s <= 0 && data[0].p_m <= 0 && data[0].p_l <= 0 && data[0].p_xl <= 0 && data[0].p_xxl <= 0){
-        	  	 $(".p3-btn2").hide();
-                 alert("很抱歉！本次活动5公里,10公里的T恤尺码已没有库存！");
-        	  }
 
-        	  // 家庭 T恤尺码库存
-        	  if(data[0].f_xs <= 0){
-        	  	 $("#size-2 option[value='XS']").remove();
-        	  	 $("#size-3 option[value='XS']").remove();
-        	  	 $("#size-4 option[value='XS']").remove();
-        	  }
-        	  if(data[0].f_s <= 0){
-        	  	 $("#size-2 option[value='S']").remove();
-        	  	 $("#size-3 option[value='S']").remove();
-        	  	 $("#size-4 option[value='S']").remove();
-        	  }
-        	  if(data[0].f_m <= 0){
-        	  	 $("#size-2 option[value='M']").remove();
-        	  	 $("#size-3 option[value='M']").remove();
-        	  	 $("#size-4 option[value='M']").remove();
-        	  }
-        	  if(data[0].f_l <= 0){
-        	  	 $("#size-2 option[value='L']").remove();
-        	  	 $("#size-3 option[value='L']").remove();
-        	  	 $("#size-4 option[value='L']").remove();
-        	  }
-        	  if(data[0].f_xl <= 0){
-        	  	 $("#size-2 option[value='XL']").remove();
-        	  	 $("#size-3 option[value='XL']").remove();
-        	  	 $("#size-4 option[value='XL']").remove();
-        	  }
-        	  if(data[0].f_xxl <= 0){
-        	  	 $("#size-2 option[value='XXL']").remove();
-        	  	 $("#size-3 option[value='XXL']").remove();
-        	  	 $("#size-4 option[value='XXL']").remove();
-        	  }
-        	  if(data[0].kids_110 <= 0){
-        	  	 $("#size-4 option[value='XXXS']").remove();
-        	  }
-        	  if(data[0].kids_130 <= 0){
-        	  	 $("#size-4 option[value='XXS']").remove();
-        	  }
-        	  if(data[0].f_xs <= 0 && data[0].f_s <= 0 && data[0].f_m <= 0 && data[0].f_l <= 0 && data[0].f_xl <= 0 && data[0].f_xxl <= 0 && data[0].kids_110 <= 0 && data[0].kids_130 <= 0){
-        	  	 $(".p3-btn4").hide();
-             alert("很抱歉！本次活动亲子跑的T恤尺码已没有库存！");
-        	  }
+        var stock_data = typeof data == "object" ? data : JSON.parse(data);
+        stock_data = stock_data[0];
 
-        }
+        app.p3.process_stock(stock_data);
    });
 };
 app.p3.disabled_singletextinput = function(){
+
     $("#username-1").attr("disabled", "disabled");
     $("#idcard-1").attr("disabled", "disabled");
     $("#phone-1").attr("disabled", "disabled");
     $("#eperson-1").attr("disabled", "disabled");
     $("#ephone-1").attr("disabled", "disabled");
+
+    $("#size-1").attr("disabled", "disabled");
+    $(".p3-sex-boy").attr("disabled", "disabled");
+    $(".p3-sex-girl").attr("disabled", "disabled");
+    $("#year-1").attr("disabled", "disabled");
+    $("#month-1").attr("disabled", "disabled");
+    $("#idchange-1").attr("disabled", "disabled");
+    $("#tag").attr("disabled", "disabled");
+
+    $("#size-1").css("background-color", "#ebebe4");
+    //$(".p3-sex-boy").css("background-color", "#ebebe4");
+    //$(".p3-sex-girl").css("background-color", "#ebebe4");
+    $("#year-1").css("background-color", "#ebebe4");
+    $("#month-1").css("background-color", "#ebebe4");
+    $("#idchange-1").css("background-color", "#ebebe4");
+    $("#tag").css("background-color", "#ebebe4");
+
+    $("#username-1").css("background-color", "#ebebe4");
+    $("#idcard-1").css("background-color", "#ebebe4");
+    $("#phone-1").css("background-color", "#ebebe4");
+    $("#eperson-1").css("background-color", "#ebebe4");
+    $("#ephone-1").css("background-color", "#ebebe4");
 };
 app.p3.disabled_familytextinput = function(){
     $("#username-2,#username-3,#username-4").attr("disabled", "disabled");
@@ -460,6 +524,31 @@ app.p3.disabled_familytextinput = function(){
     $("#eperson-2,#eperson-3,#eperson-4").attr("disabled", "disabled");
     $("#ephone-2,#ephone-3,#ephone-4").attr("disabled", "disabled");
     $("#parent,#parent-phone").attr("disabled", "disabled");
+
+    $("#username-2,#username-3,#username-4").css("background-color", "#ebebe4");
+    $("#idcard-2,#idcard-3,#idcard-4").css("background-color", "#ebebe4");
+    $("#phone-2,#phone-3").css("background-color", "#ebebe4");
+    $("#eperson-2,#eperson-3,#eperson-4").css("background-color", "#ebebe4");
+    $("#ephone-2,#ephone-3,#ephone-4").css("background-color", "#ebebe4");
+    $("#parent,#parent-phone").css("background-color", "#ebebe4");
+
+    $("#size-2, #size-3, #size-4").attr("disabled", "disabled");
+    $(".p3-sex-boy-2, .p3-sex-boy-3, .p3-sex-boy-4").attr("disabled", "disabled");
+    $(".p3-sex-girl-2, .p3-sex-girl-3, .p3-sex-girl-4").attr("disabled", "disabled");
+    $("#year-2, #year-3, #year-4").attr("disabled", "disabled");
+    $("#month-2, #month-3, #month-4").attr("disabled", "disabled");
+    $("#idchange-2, #idchange-3, #idchange-4").attr("disabled", "disabled");
+    $("#tag-family").attr("disabled", "disabled");
+
+    $("#size-2, #size-3, #size-4").css("background-color", "#ebebe4");
+    //$(".p3-sex-boy-2, .p3-sex-boy-3, .p3-sex-boy-4").css("background-color", "#ebebe4");
+    //$(".p3-sex-girl-2, .p3-sex-girl-3, .p3-sex-girl-4").css("background-color", "#ebebe4");
+    $("#year-2, #year-3, #year-4").css("background-color", "#ebebe4");
+    $("#month-2, #month-3, #month-4").css("background-color", "#ebebe4");
+    $("#idchange-2, #idchange-3, #idchange-4").css("background-color", "#ebebe4");
+    $("#tag-family").css("background-color", "#ebebe4");
+
+
 };
 app.p3.enabled_singletextinput = function(){
     $("#username-1").removeAttr("disabled");
@@ -467,6 +556,28 @@ app.p3.enabled_singletextinput = function(){
     $("#phone-1").removeAttr("disabled");
     $("#eperson-1").removeAttr("disabled");
     $("#ephone-1").removeAttr("disabled");
+
+    $("#size-1").removeAttr("disabled");
+    $(".p3-sex-boy").removeAttr("disabled");
+    $(".p3-sex-girl").removeAttr("disabled");
+    $("#year-1").removeAttr("disabled");
+    $("#month-1").removeAttr("disabled");
+    $("#idchange-1").removeAttr("disabled");
+    $("#tag").removeAttr("disabled");
+
+    $("#size-1").css("background-color", "#fff");
+    //$(".p3-sex-boy").css("background-color", "#fff");
+    //$(".p3-sex-girl").css("background-color", "#fff");
+    $("#year-1").css("background-color", "#fff");
+    $("#month-1").css("background-color", "#fff");
+    $("#idchange-1").css("background-color", "#fff");
+    $("#tag").css("background-color", "#fff");
+
+    $("#username-1").css("background-color", "#fff");
+    $("#idcard-1").css("background-color", "#fff");
+    $("#phone-1").css("background-color", "#fff");
+    $("#eperson-1").css("background-color", "#fff");
+    $("#ephone-1").css("background-color", "#fff");
 };
 app.p3.enabled_familytextinput = function(){
     $("#username-2,#username-3,#username-4").removeAttr("disabled");
@@ -475,6 +586,30 @@ app.p3.enabled_familytextinput = function(){
     $("#eperson-2,#eperson-3,#eperson-4").removeAttr("disabled");
     $("#ephone-2,#ephone-3,#ephone-4").removeAttr("disabled");
     $("#parent,#parent-phone").removeAttr("disabled");
+
+    $("#username-2,#username-3,#username-4").css("background-color", "#fff");
+    $("#idcard-2,#idcard-3,#idcard-4").css("background-color", "#fff");
+    $("#phone-2,#phone-3").css("background-color", "#fff");
+    $("#eperson-2,#eperson-3,#eperson-4").css("background-color", "#fff");
+    $("#ephone-2,#ephone-3,#ephone-4").css("background-color", "#fff");
+    $("#parent,#parent-phone").css("background-color", "#fff");
+
+    $("#size-2, #size-3, #size-4").removeAttr("disabled");
+    $(".p3-sex-boy-2, .p3-sex-boy-3, .p3-sex-boy-4").removeAttr("disabled");
+    $(".p3-sex-girl-2, .p3-sex-girl-3, .p3-sex-girl-4").removeAttr("disabled");
+    $("#year-2, #year-3, #year-4").removeAttr("disabled");
+    $("#month-2, #month-3, #month-4").removeAttr("disabled");
+    $("#idchange-2, #idchange-3, #idchange-4").removeAttr("disabled");
+    $("#tag-family").removeAttr("disabled");
+
+    $("#size-2, #size-3, #size-4").css("background-color", "#fff");
+    //$(".p3-sex-boy-2, .p3-sex-boy-3, .p3-sex-boy-4").css("background-color", "#fff");
+    //$(".p3-sex-girl-2, .p3-sex-girl-3, .p3-sex-girl-4").css("background-color", "#fff");
+    $("#year-2, #year-3, #year-4").css("background-color", "#fff");
+    $("#month-2, #month-3, #month-4").css("background-color", "#fff");
+    $("#idchange-2, #idchange-3, #idchange-4").css("background-color", "#fff");
+    $("#tag-family").css("background-color", "#fff");
+
 };
 var idcard1;
 var idcard2;
@@ -1274,7 +1409,7 @@ app.p5.bind_touch_event = function(){
         var coupon_code = $("#coupon").val();
         if(!coupon_code)
         {
-            app.p5.gotopay(user, paydata);
+            app.p5.before_gotopay_final_check_stock(user, paydata);
         }else if(coupon_code != app.p5.coupon_code)
         {
             $.getJSON(app.api.host + '/coupon/verify/' + coupon_code, function(data){
@@ -1284,7 +1419,7 @@ app.p5.bind_touch_event = function(){
                 {
                     if(data[0].number_of_use < 3)
                     {
-                        app.p5.gotopay(user, paydata, true, coupon_code);
+                        app.p5.before_gotopay_final_check_stock(user, paydata, true, coupon_code);
                         $("#coupon-msg").html('');
                         $("#coupon").attr('disabled', 'disabled');
                     }else
@@ -1302,15 +1437,102 @@ app.p5.bind_touch_event = function(){
 	});
 };
 
+app.p5.final_check_stock = function(stock_data, user_data){
+    var message = false;
+
+    if(user_data.grouptype == "5km" || user_data.grouptype == "10km")
+    {
+        if(stock_data.group_type_single < 1)
+        {
+            message = "5公里或10公里报名名额已满";
+        }else
+        {
+            if((stock_data.p_xs < 1 && user_data.p1_teesize == 'XS(160/82A)')
+                || (stock_data.p_s < 1 && user_data.p1_teesize == 'S(165/84A)')
+                || (stock_data.p_m < 1 && user_data.p1_teesize == 'M(170/88A)')
+                || (stock_data.p_l < 1 && user_data.p1_teesize == 'L(175/92A)')
+                || (stock_data.p_xl < 1 && user_data.p1_teesize == 'XL(180/96A)')
+                || (stock_data.p_xxl < 1 && user_data.p1_teesize == 'XLL(185/100A)'))
+            {
+                message = "T恤尺码已没有库存";
+            }
+        }
+    }
+
+
+    if(user_data.grouptype == "亲子跑")
+    {
+        if(stock_data.group_type_family < 1)
+        {
+            message = "亲子跑报名名额已满";
+        }else
+        {
+            if((stock_data.f_xs < 1 && user_data.p1_teesize == 'XS(160/82A)')
+                || (stock_data.f_s < 1 && user_data.p1_teesize == 'S(165/84A)')
+                || (stock_data.f_m < 1 && user_data.p1_teesize == 'M(170/88A)')
+                || (stock_data.f_l < 1 && user_data.p1_teesize == 'L(175/92A)')
+                || (stock_data.f_xl < 1 && user_data.p1_teesize == 'XL(180/96A)')
+                || (stock_data.f_xxl < 1 && user_data.p1_teesize == 'XLL(185/100A)'))
+            {
+                message = "成年参赛者1的T恤尺码已没有库存";
+            }
+
+            if((stock_data.f_xs < 1 && user_data.p2_teesize == 'XS(160/82A)')
+                || (stock_data.f_s < 1 && user_data.p2_teesize == 'S(165/84A)')
+                || (stock_data.f_m < 1 && user_data.p2_teesize == 'M(170/88A)')
+                || (stock_data.f_l < 1 && user_data.p2_teesize == 'L(175/92A)')
+                || (stock_data.f_xl < 1 && user_data.p2_teesize == 'XL(180/96A)')
+                || (stock_data.f_xxl < 1 && user_data.p2_teesize == 'XLL(185/100A)'))
+            {
+                message = (message != "" ? ", " : "") + "成年参赛者2的T恤尺码已没有库存";
+            }
+
+            if((stock_data.f_xs < 1 && user_data.kids_teesize == 'XS(160/82A)')
+                || (stock_data.f_s < 1 && user_data.kids_teesize == 'S(165/84A)')
+                || (stock_data.f_m < 1 && user_data.kids_teesize == 'M(170/88A)')
+                || (stock_data.f_l < 1 && user_data.kids_teesize == 'L(175/92A)')
+                || (stock_data.f_xl < 1 && user_data.kids_teesize == 'XL(180/96A)')
+                || (stock_data.f_xxl < 1 && user_data.kids_teesize == 'XLL(185/100A)')
+                || (stock_data.kids_110 < 1 && user_data.kids_teesize == '110cm以下')
+                || (stock_data.kids_130 < 1 && user_data.kids_teesize == '110cm-130cm'))
+            {
+                message = (message != "" ? ", " : "") + "未成年参赛者（1至17周岁）的T恤尺码已没有库存";
+            }
+
+        }
+    }
+
+    return message;
+};
+
+app.p5.before_gotopay_final_check_stock = function(user_data, pay_data, use_coupon, coupon_code){
+    $.getJSON(app.api.host + '/stock/get', function(data){
+        var stock_data = typeof data == "object" ? data : JSON.parse(data);
+        stock_data = stock_data[0];
+
+        var message = app.p5.final_check_stock(stock_data, user_data);
+        if(!message)
+        {
+            app.p5.gotopay(user_data, pay_data, use_coupon, coupon_code);
+        }else
+        {
+            alert("抱歉！由于系统库存实时更新，您选择的\"" + message + "\"。请您在付款之前修改报名信息！");
+            //app.p3.process_stock(stock_data);
+            app.template.swiper.to(2);
+        }
+    });
+};
+
+
 app.p5.coupon_code = 0;
 app.p5.gotopay = function(user_data, pay_data, use_coupon, coupon_code)
 {
     $.post(app.api.host + '/user/add', user_data, function(data){
         var data = typeof data == "object" ? data : JSON.parse(data);
-        // console.info(data.rs);
+
         if(data.rs=="success" || (data.rs.indexOf('已报名')!=-1 && data.rs.indexOf('未支付')!=-1))
         {
-            app.p1.setidCookie("id",""+user.p1_card_number+"");
+            app.p1.setidCookie("id", user_data.p1_card_number);
             if(!use_coupon)
                 app.p5.payment(pay_data);
             else

@@ -121,8 +121,8 @@ app.template.tool.random = function(range){
 /*-- api config
 ====================================================== */
 app.api = function(){};
-app.api.host = "https://molirun.api.createcdigital.com";
-//app.api.host = "http://192.168.1.5:8000";
+//app.api.host = "https://molirun.api.createcdigital.com";
+app.api.host = "http://192.168.1.4:8000";
 
 app.wxpayapi = function(){};
 app.wxpayapi.host = "https://pay.wechat.createcdigital.com/molirun-wxpayapi";
@@ -1565,6 +1565,7 @@ app.p5.gotopay_step2 = function(user_data, pay_data, use_coupon, coupon_code){
         app.p5.useconpontopay(user_data, pay_data, coupon_code);
     }
 };
+
 app.p5.useconpontopay = function(user_data, pay_data, coupon_code){
     var notify = {"appid":"wxc6d26827fed8ccc6",
                     "attach": user_data.grouptype != "亲子跑" ? "100元一般跑" : "200元亲子跑",

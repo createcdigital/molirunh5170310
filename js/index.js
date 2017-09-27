@@ -1530,15 +1530,25 @@ app.p5.gotopay = function(user_data, pay_data, use_coupon, coupon_code)
     $.post(app.api.host + '/user/add', user_data, function(data){
         var data = typeof data == "object" ? data : JSON.parse(data);
 
-        if(data.rs=="success" || (data.rs.indexOf('已报名')!=-1 && data.rs.indexOf('未支付')!=-1))
+        if(data.rs=="success")
         {
-            app.p1.setidCookie("id", user_data.p1_card_number);
-            if(!use_coupon)
-                app.p5.payment(pay_data);
-            else
-            {
-                app.p5.useconpontopay(user_data, pay_data, coupon_code);
-            }
+            app.p5.gotopay_step2(user_data, pay_data, use_coupon, coupon_code);
+        }else if(data.rs.indexOf('已报名(未支付)') > 0)
+        {
+            // see detail issues#3(https://github.com/createcdigital/molirunh5170310/issues/3)
+            user_data.action = "update";
+
+            $.post(app.api.host + '/user/add', user_data, function(data){
+                var data = typeof data == "object" ? data : JSON.parse(data);
+                if(data.rs=="success")
+                {
+                    app.p5.gotopay_step2(user_data, pay_data, use_coupon, coupon_code);
+                }else
+                {
+                    alert(data.rs);
+                }
+
+            }, "JSON");
         }else
         {
             alert(data.rs);
@@ -1546,6 +1556,15 @@ app.p5.gotopay = function(user_data, pay_data, use_coupon, coupon_code)
     }, "JSON");
 }
 
+app.p5.gotopay_step2 = function(user_data, pay_data, use_coupon, coupon_code){
+    app.p1.setidCookie("id", user_data.p1_card_number);
+    if(!use_coupon)
+        app.p5.payment(pay_data);
+    else
+    {
+        app.p5.useconpontopay(user_data, pay_data, coupon_code);
+    }
+};
 app.p5.useconpontopay = function(user_data, pay_data, coupon_code){
     var notify = {"appid":"wxc6d26827fed8ccc6",
                     "attach": user_data.grouptype != "亲子跑" ? "100元一般跑" : "200元亲子跑",
